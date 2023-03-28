@@ -95,7 +95,7 @@ import { Icon } from "astro-icon";
   for (let x = 1; x < column; x++) {
     if (x != 0) {
       temp = botone!.textContent =
-        '<button class="w-2 h-2 bg-white rounded-full dot"></button>';
+        '<button class="w-2 h-2 dark:bg-white light:bg-blue rounded-full dot"></button>';
       dots_m = dots_m + temp;
     }
   }
@@ -103,7 +103,7 @@ import { Icon } from "astro-icon";
   console.log(dots_m);
 
   botone!.innerHTML =
-    '<button class="w-2 h-2 rounded-full dot bg-white !bg-blue"></button>' +
+    '<button class="w-2 h-2 rounded-full dot dark:bg-white dark:!bg-blue light:bg-blue light:!bg-[#10054D]"></button>' +
     dots_m;
 
   slide_track!.style.width = "calc(250px * " + count_slide + ")";
@@ -123,8 +123,18 @@ import { Icon } from "astro-icon";
       if (Number(clickedDotNum) == activeDotNum) {
         return;
       } else {
-        dots[activeDotNum].classList.remove("!bg-blue");
-        dots[Number(clickedDotNum)].classList.add("!bg-blue");
+        if (document.documentElement.className === "dark") {
+          dots[activeDotNum].classList.remove("!bg-[#10054D]");
+          dots[Number(clickedDotNum)].classList.remove("!bg-[#10054D]");
+          dots[activeDotNum].classList.remove("!bg-blue");
+          dots[Number(clickedDotNum)].classList.add("!bg-blue");
+        } else {
+          dots[activeDotNum].classList.remove("!bg-blue");
+          dots[Number(clickedDotNum)].classList.remove("!bg-blue");
+          dots[activeDotNum].classList.remove("!bg-[#10054D]");
+          dots[Number(clickedDotNum)].classList.add("!bg-[#10054D]");
+        }
+        
         var actual_number = 0;
         actual_number = 1000 * Number(clickedDotNum);
         slide_animation!.style.transform =
