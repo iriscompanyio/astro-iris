@@ -6,15 +6,19 @@
 // helpful tooltips, and warnings if your exported object is invalid.
 // You can disable this by removing "@ts-check" and `@type` comments below.
 
-import WindiCSS from 'vite-plugin-windicss'
+import WindiCSS from 'vite-plugin-windicss';
 
 // @ts-check
-export default /** @type {import('astro').AstroUserConfig} */ (
-  {
-    // Set "renderers" to "[]" to disable all default, builtin component support.
-    // renderers: [],
-    vite: {
-      plugins: [WindiCSS()]
-    }
-  }
-);
+import { defineConfig } from "astro/config";
+import vue from "@astrojs/vue";
+
+// https://astro.build/config
+export default defineConfig( /** @type {import('astro').AstroUserConfig} */
+{
+  // Set "renderers" to "[]" to disable all default, builtin component support.
+  // renderers: [],
+  vite: {
+    plugins: [WindiCSS()]
+  },
+  integrations: [vue()]
+});

@@ -8,10 +8,12 @@ import Layout from "@layouts/Layout.astro";
 import Brand from "@components/Brand.astro";
 import Brain from "@components/Brain.astro";
 import Chat from "@components/Chatbot.astro";
+import Bot from "../components/Bot.vue";
 ---
 
 <Layout>
   <main>
+    <Bot client:visible />
     <Chat
       img = "./avatar-ejemplo.jpg"
       description="Tu Asistente Virtual"
