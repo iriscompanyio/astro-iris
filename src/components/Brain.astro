@@ -19,9 +19,9 @@ const { title, description, body } = Astro.props;
 			</div>
 			<div class="<md:text-2xl text-6xl font-bold text-right">
 				<p class="gradient">{title}</p>
-				<p class="text-white">{description}</p>
+				<p class="dark:text-white light:text-black">{description}</p>
 			</div>
-			<div class="<md:text-base <lg:font-600 text-2xl text-white pt-2rem text-right">
+			<div class="<md:text-base <lg:font-600 text-2xl dark:text-white light:text-black pt-2rem text-right">
 				<a>{body}</a>
 			</div>
 		</div>
@@ -44,7 +44,7 @@ const { title, description, body } = Astro.props;
     </div>
     <div class="<xl:hidden text-center mx-auto <sm:hidden">
         <div class="bg-gradient-to-r <md:w-full">
-            <div class="flex flex-1 rounded-md text-2xl text-white <lg:font-600 <md:text-base space-x-8rem justify-center">
+            <div class="flex flex-1 rounded-md text-2xl dark:text-white light:text-black <lg:font-600 <md:text-base space-x-8rem justify-center">
                 <p class="<md:text-sm lg:w-65 h-12">Diseño de canalizaciones personalizadas de IA.</p>
                 <p class="<md:text-sm lg:w-65 h-12">Recolección y procesamiento de imágenes y texto.</p>
                 <p class="<md:text-sm lg:w-65 h-12">Visión Artificial, OCR, NLP y transcripción Automática.</p>

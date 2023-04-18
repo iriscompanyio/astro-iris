@@ -10,14 +10,14 @@ import { Icon } from "astro-icon";
 
 <div id="faq" class="lg:px-90 <xl:px-10 mt-12 pb-47">
   <h1
-    class="text-white text-center font-mono tracking-tighter text-2xl xl:text-6xl font-600 mb-10"
+    class="dark:text-white light:text-black text-center font-mono tracking-tighter text-2xl xl:text-6xl font-600 mb-10"
   >
     {title}
   </h1>
   {
     items.map((item, index) => (
       <div>
-        <div class="acordeon p-3 text-white items-center  flex border-b-2 justify-between  border-[#FF17E8C9]">
+        <div class="acordeon p-3 dark:text-white light:text-black items-center  flex border-b-2 justify-between  border-[#FF17E8C9]">
           <button id="boton" class="boton text-justify mr-3  xl:text-2xl font-700 ">
             {item}
           </button>
@@ -29,14 +29,16 @@ import { Icon } from "astro-icon";
           </div>
         </div>
         <div
-          class="content tranform transition duration-300 w-full hidden text-white border-b-2 border-[#FF17E8C9] "
+          class="content tranform transition duration-300 w-full hidden dark:text-white light:text-black border-b-2 border-[#FF17E8C9] "
         >
           { description[index] }
         </div>
       </div>
     ))
   }
+  
 </div>
+
 <script>
   var co = document.getElementsByClassName("acordeon");
   var content = document.getElementsByClassName("content");

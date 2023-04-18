@@ -12,9 +12,9 @@ const { title, description, body } = Astro.props;
 		<div class ="flex-col my-auto mx-auto <lg:mx-12 mx-8rem">
 			<div class="<md:text-2xl text-center text-5xl font-bold">
 				<p class="gradient">{title}</p>
-				<p class="text-white">{description}</p>
+				<p class="dark:text-white light:text-black">{description}</p>
 			</div>
-			<div class="text-white lg:mx-24rem <lg:font-600 <md:text-base text-center text-2xl text-white pt-4rem text-center">
+			<div class="dark:text-white light:text-black lg:mx-24rem <lg:font-600 <md:text-base text-center text-2xl text-white pt-4rem text-center">
 				<a>{body}</a>
 			</div>
         </div>
@@ -32,7 +32,7 @@ const { title, description, body } = Astro.props;
 	</div>
     <div class="<xl:hidden text-center mx-auto <sm:hidden">
 		<div class="bg-gradient-to-r <md:w-full">
-			<div class="flex flex-1 rounded-md text-2xl text-white <lg:font-600 <md:text-base space-x-8rem justify-center">
+			<div class="flex flex-1 rounded-md text-2xl dark:text-white light:text-black <lg:font-600 <md:text-base space-x-8rem justify-center">
 			    <p class="<md:text-sm lg:w-65 h-12">Mantenimiento de bajo costo para tus aplicaciones.</p>
                 <p class="<md:text-sm lg:w-65 h-12">Implementaciones en producción locales y en la nube.</p>
                 <p class="<md:text-sm lg:w-65 h-12">Diseño de Arquitectura de Sistemas Distribuidos.</p>
