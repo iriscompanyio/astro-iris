@@ -1,9 +1,9 @@
-import CardDone from './CardDone'
+import CardDoneList from './CardDoneList';
 
-const Done = ({ tasks, ids, totalTasks, setTotalTasks, change, setChange }: any) => {
+const DoneLisT = ({ tasks, ids, totalTasks, setTotalTasks, change, setChange }: any) => {
 
     return (
-        <div className='bg-[#F5F5F5] rounded-2xl h-[550px] w-3/4 overflow-y-scroll z-10'>
+        <div className='bg-[#F5F5F5] rounded-2xl w-5/6 pb-3'>
             <div className='flex justify-between items-center'>
                 <div className='flex items-center gap-5 pl-5 pt-5 mb-5'>
                     <p className='w-2 h-2 bg-[#57c055] rounded-full flex justify-center items-center'></p>
@@ -11,14 +11,16 @@ const Done = ({ tasks, ids, totalTasks, setTotalTasks, change, setChange }: any)
                     <p className='w-5 h-5 rounded-full bg-[#E0E0E0] flex justify-center items-center text-[#625F6D]'>{tasks.length}</p>
                 </div>
             </div>
-            <hr className='ml-5 h-[3px] bg-[#57c055] w-5/6' />
-            <div className='flex flex-col items-center gap-5 mt-5'>
+            <hr className='ml-5 h-[3px] bg-[#57c055] w-[95%]' />
+            <div className='flex flex-col items-center gap-3 mt-5'>
                 {tasks.map((task: any, ix: number) =>
                 (
-                    <CardDone key={ix} id={ids[ix]} task={task} totalTasks={totalTasks} setTotalTasks={setTotalTasks} change={change} setChange={setChange} />
+                    <CardDoneList key={ix} id={ids[ix]} task={task} totalTasks={totalTasks} setTotalTasks={setTotalTasks} change={change} setChange={setChange} />
                 )
-                )}</div>
+                )}
+            </div>
         </div >
     )
 }
-export default Done
+
+export default DoneLisT;

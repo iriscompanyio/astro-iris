@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react'
 import ToDo from './ToDo'
 import OnProgress from './OnProgress'
 import Done from './Done'
+import Box from 'src/assets/Box'
+import List from 'src/assets/List'
+import ToDoList from './ToDoList'
+import OnProgressList from './OnProgressList'
+import DoneLisT from './DoneLisT'
 
 interface Task {
     state: string,
@@ -43,14 +48,13 @@ const DashboardTask = () => {
     }]);
 
     const [change, setChange] = useState(false);
-
     const [tasksOnProgress, setTaskOnProgress] = useState<Task[]>([]);
     const [tasksToDo, setTaskToDo] = useState<Task[]>([]);
     const [tasksDone, setTaskDone] = useState<Task[]>([]);
-
     const [idsToDo, setIdsToDo] = useState<number[]>([]);
     const [idsOnProgress, setIdsOnProgress] = useState<number[]>([]);
     const [idsDone, setIdsDone] = useState<number[]>([]);
+
     useEffect(() => {
 
         const filteredTasksOnProgress = tasks
@@ -83,28 +87,71 @@ const DashboardTask = () => {
         setIdsDone(filteredIndicesDone);
     }, [change])
 
+    const [viewData, setViewData] = useState('box');
+
+    const handleChangeViewData = (value: string) => {
+        setViewData(value);
+    }
 
     return (
-        <div className='grid grid-cols-3 place-items-center'>
-            <ToDo tasks={tasksToDo}
-                ids={idsToDo}
-                totalTasks={tasks}
-                setTotalTasks={setTasks}
-                change={change}
-                setChange={setChange} />
-            <OnProgress tasks={tasksOnProgress}
-                ids={idsOnProgress}
-                totalTasks={tasks}
-                setTotalTasks={setTasks}
-                change={change}
-                setChange={setChange} />
-            <Done tasks={tasksDone}
-                ids={idsDone}
-                totalTasks={tasks}
-                setTotalTasks={setTasks}
-                change={change}
-                setChange={setChange} />
-        </div>
+        <>
+            <div className='flex justify-end mr-16 mb-5'>
+                <div className='flex gap-3'>
+                    <div onClick={() => handleChangeViewData('list')} className={`${viewData == 'list' ? "bg-[#5030E5]" : ""} p-2 rounded-md cursor-pointer`}>
+                        <List />
+                    </div>
+                    <div onClick={() => handleChangeViewData('box')} className={`${viewData == 'box' ? "bg-[#5030E5]" : ""} p-2 rounded-md cursor-pointer`}>
+                        <Box />
+                    </div>
+                </div>
+            </div>
+            {viewData == 'box' ?
+                <>
+                    <div className='grid grid-cols-3 place-items-center'>
+                        <ToDo tasks={tasksToDo}
+                            ids={idsToDo}
+                            totalTasks={tasks}
+                            setTotalTasks={setTasks}
+                            change={change}
+                            setChange={setChange} />
+                        <OnProgress tasks={tasksOnProgress}
+                            ids={idsOnProgress}
+                            totalTasks={tasks}
+                            setTotalTasks={setTasks}
+                            change={change}
+                            setChange={setChange} />
+                        <Done tasks={tasksDone}
+                            ids={idsDone}
+                            totalTasks={tasks}
+                            setTotalTasks={setTasks}
+                            change={change}
+                            setChange={setChange} />
+                    </div>
+                </> : <>
+                    <div className='flex flex-col items-center justify-center gap-5'>
+                        <ToDoList tasks={tasksToDo}
+                            ids={idsToDo}
+                            totalTasks={tasks}
+                            setTotalTasks={setTasks}
+                            change={change}
+                            setChange={setChange} />
+                        <OnProgressList tasks={tasksOnProgress}
+                            ids={idsOnProgress}
+                            totalTasks={tasks}
+                            setTotalTasks={setTasks}
+                            change={change}
+                            setChange={setChange} />
+                        <DoneLisT tasks={tasksDone}
+                            ids={idsDone}
+                            totalTasks={tasks}
+                            setTotalTasks={setTasks}
+                            change={change}
+                            setChange={setChange} />
+                    </div>
+                </>
+            }
+
+        </>
     )
 }
 

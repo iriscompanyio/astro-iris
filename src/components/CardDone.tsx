@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Comments from 'src/assets/Comments'
 
 const CardDone = ({ id, task, totalTasks, setTotalTasks, change, setChange }: any) => {
@@ -43,7 +43,7 @@ const CardDone = ({ id, task, totalTasks, setTotalTasks, change, setChange }: an
                         className={`absolute z-20 opacity-90 left-0 top-5 bg-slate-50 w-24 duration-500 ease-out overflow-hidden border-[1px] rounded ${seeAction ? "h-10" : "h-0  border-0 "
                             }`}
                     >
-                        <p className='text-[#5030E5] text-left bg-[#5030e51a] hover:bg-amber-200 font-semibold text-sm' onClick={() => handleChangeToDo()}>To Do</p>
+                        <p className='text-[#5030E5] text-left bg-[#5030e51a] hover:bg-blue-200 font-semibold text-sm' onClick={() => handleChangeToDo()}>To Do</p>
                         <p className='text-[#FFA500] text-left bg-[#ffa50026] hover:bg-amber-200 font-semibold text-sm' onClick={() => handleChangeOnProgress()}>On Progress</p>
 
                     </div>}

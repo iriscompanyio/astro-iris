@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import CardToDo from './CardToDo'
 import AddToDo from './AddToDo';
+import CardToDoList from './CardToDoList';
 
-const ToDo = ({ tasks, ids, totalTasks, setTotalTasks, change, setChange }: any) => {
-
+const ToDoList = ({ tasks, ids, totalTasks, setTotalTasks, change, setChange }: any) => {
     const [isOpenModal, setIsOpenModal] = useState(false);
 
     const openModal = () => {
@@ -16,7 +16,7 @@ const ToDo = ({ tasks, ids, totalTasks, setTotalTasks, change, setChange }: any)
     };
 
     return (
-        <div className='bg-[#F5F5F5] rounded-2xl h-[550px] w-3/4 overflow-y-scroll '>
+        <div className='bg-[#F5F5F5] rounded-2xl w-5/6 pb-3'>
             <div className='flex justify-between items-center'>
                 <div className='flex items-center gap-5 pl-5 pt-5 mb-5'>
                     <p className='w-2 h-2 bg-[#5030E5] rounded-full flex justify-center items-center'></p>
@@ -27,11 +27,11 @@ const ToDo = ({ tasks, ids, totalTasks, setTotalTasks, change, setChange }: any)
                     <p className='text-[#5030E5] text-center text-xl' onClick={openModal}>+</p>
                 </div>
             </div>
-            <hr className='ml-5 h-[3px] bg-[#5030E5] w-5/6' />
-            <div className='flex flex-col items-center gap-5 mt-5'>
+            <hr className='ml-5 h-[3px] bg-[#5030E5] w-[95%]' />
+            <div className='flex flex-col items-center gap-3 mt-5'>
                 {tasks.map((task: any, ix: number) =>
                 (
-                    <CardToDo key={ix} id={ids[ix]} task={task} totalTasks={totalTasks} setTotalTasks={setTotalTasks} change={change} setChange={setChange} />
+                    <CardToDoList key={ix} id={ids[ix]} task={task} totalTasks={totalTasks} setTotalTasks={setTotalTasks} change={change} setChange={setChange} />
                 )
                 )}
             </div>
@@ -40,4 +40,4 @@ const ToDo = ({ tasks, ids, totalTasks, setTotalTasks, change, setChange }: any)
     )
 }
 
-export default ToDo;
+export default ToDoList
