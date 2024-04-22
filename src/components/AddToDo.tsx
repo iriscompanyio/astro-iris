@@ -63,6 +63,7 @@ const AddToDo = ({ closeModal, totalTasks, setTotalTasks }: any) => {
                     <div>
                         <label className="block mb-2">Priority:</label>
                         <select
+                            required
                             name='priority'
                             onChange={handleChangeSelect}
                             className="appearance-none text-center bg-gray-300 text-black font-semibold w-1/3 sm:w-full max-w-xs ml-3 sm:ml-0"
@@ -79,6 +80,7 @@ const AddToDo = ({ closeModal, totalTasks, setTotalTasks }: any) => {
                     <div>
                         <label className="block mb-2">Title:</label>
                         <input
+                            required
                             type="text"
                             name="title"
                             value={datos.title}
@@ -89,6 +91,7 @@ const AddToDo = ({ closeModal, totalTasks, setTotalTasks }: any) => {
                     <div>
                         <label className="block mb-2">Description :</label>
                         <input
+                            required
                             type="text"
                             name="description"
                             value={datos.description}
