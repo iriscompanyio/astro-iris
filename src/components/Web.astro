@@ -1,57 +1,70 @@
 ---
 export interface Props {
-	title: string;
-	description: string;
-	body: string;
+  title: string;
+  description: string;
+  body: string;
 }
 
 const { title, description, body } = Astro.props;
 ---
-<div id="web" class="container mx-auto pt-4rem <md:h-520px h-800px">
-	<div class="flex">
-		<div class ="flex-col my-auto mx-auto <lg:mx-12 mx-8rem">
-			<div class="<md:text-2xl text-center text-5xl font-bold">
-				<p class="gradient">{title}</p>
-				<p class="dark:text-white light:text-black">{description}</p>
-			</div>
-			<div class="dark:text-white light:text-black lg:mx-24rem <lg:font-600 <md:text-base text-center text-2xl text-white pt-4rem text-center">
-				<a>{body}</a>
-			</div>
-        </div>
+
+<div id="web" class="container relative mx-auto pt-4rem <md:h-520px h-800px">
+  <div class="flex">
+    <div class="flex-col my-auto mx-auto <lg:mx-12 mx-8rem">
+      <div class="<md:text-2xl text-center text-5xl font-bold">
+        <p class="gradient">{title}</p>
+        <p class="dark:text-white light:text-black">{description}</p>
+      </div>
+      <div
+        class="dark:text-white light:text-black lg:mx-24rem <lg:font-600 <md:text-base text-2xl text-white pt-4rem text-center"
+      >
+        <a>{body}</a>
+      </div>
     </div>
-	<!-- <div class="flex flex-1 <lg:flex-col <lg:space-y-5 mx-auto py-4rem <md:mr-1.5rem lg:space-x-24 justify-center text-white font-bold"> -->
-    <div class="w-full <xl:hidden">
-		<div class="pt-4rem">
-			<div class="flex flex-1 space-x-20rem mx-auto justify-center pb-2rem">
-				<img class="py-10px <md:h-10 h-20" src="/apk.svg" />
-                <img class="py-10px <md:h-10 h-20" src="/cloud.svg" />
-                <img class="py-10px <md:h-10 h-20" src="/edit.svg" />
-                <img class="py-10px <md:h-10 h-20" src="/user.svg" />
-			</div>
-		</div>
-	</div>
-    <div class="<xl:hidden text-center mx-auto <sm:hidden">
-		<div class="bg-gradient-to-r <md:w-full">
-			<div class="flex flex-1 rounded-md text-2xl dark:text-white light:text-black <lg:font-600 <md:text-base space-x-8rem justify-center">
-			    <p class="<md:text-sm lg:w-65 h-12">Mantenimiento de bajo costo para tus aplicaciones.</p>
-                <p class="<md:text-sm lg:w-65 h-12">Implementaciones en producción locales y en la nube.</p>
-                <p class="<md:text-sm lg:w-65 h-12">Diseño de Arquitectura de Sistemas Distribuidos.</p>
-                <p class="<md:text-sm lg:w-65 h-12">Diseño de Producto, Interfaz y Experiencia de Usuario.</p>
-			</div>
-		</div>
+  </div>
+  <!-- <div class="flex flex-1 <lg:flex-col <lg:space-y-5 mx-auto py-4rem <md:mr-1.5rem lg:space-x-24 justify-center text-white font-bold"> -->
+  <div class="w-full <xl:hidden">
+    <div class="pt-4rem">
+      <div class="flex flex-1 space-x-20rem mx-auto justify-center pb-2rem">
+        <img class="py-10px <md:h-10 h-20" src="/apk.svg" />
+        <img class="py-10px <md:h-10 h-20" src="/cloud.svg" />
+        <img class="py-10px <md:h-10 h-20" src="/edit.svg" />
+        <img class="py-10px <md:h-10 h-20" src="/user.svg" />
+      </div>
     </div>
-	<div class="absolute <lg:hidden right-0 top-550">
-		<img width="600px" src="/circle-ia.svg">
-	</div>
+  </div>
+  <div class="<xl:hidden text-center mx-auto <sm:hidden">
+    <div class="bg-gradient-to-r <md:w-full">
+      <div
+        class="flex flex-1 rounded-md text-2xl dark:text-white light:text-black <lg:font-600 <md:text-base space-x-8rem justify-center"
+      >
+        <p class="<md:text-sm lg:w-65 h-12">
+          Mantenimiento de bajo costo para tus aplicaciones.
+        </p>
+        <p class="<md:text-sm lg:w-65 h-12">
+          Implementaciones en producción locales y en la nube.
+        </p>
+        <p class="<md:text-sm lg:w-65 h-12">
+          Diseño de Arquitectura de Sistemas Distribuidos.
+        </p>
+        <p class="<md:text-sm lg:w-65 h-12">
+          Diseño de Producto, Interfaz y Experiencia de Usuario.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="absolute z-0 <lg:hidden right-0 top-96">
+    <img width="600px" src="/circle-ia.svg" />
+  </div>
 </div>
 
 <style>
-	.gradient {
-		font-size:larger;
-		font-weight: bold;	
-		/* font-family: Poppins; */
-			background: linear-gradient(to right, #4646F9, #9130F4);
-			-webkit-text-fill-color: transparent;
-			-webkit-background-clip: text;
-}
+  .gradient {
+    font-size: larger;
+    font-weight: bold;
+    /* font-family: Poppins; */
+    background: linear-gradient(to right, #4646f9, #9130f4);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+  }
 </style>
