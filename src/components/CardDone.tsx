@@ -45,8 +45,8 @@ const CardDone = ({ id, idProject, setProjects, task, totalTasks, change, setCha
                     </div>}
                 </div>
             </div>
-            <h1 className='text-lg font-semibold font-sans mx-5'>{task.title}</h1>
-            <span className='text-xs font-normal font-sans mx-5 text-[#787486]'>{task.description}</span>
+            <h1 className='text-lg font-semibold font-sans mx-5 w-4/5 truncate'>{task.title}</h1>
+            <p className='text-xs font-normal font-sans mx-5 text-[#787486] truncate'>{task.description}</p>
             <div className='flex items-center gap-2 mx-5'>
                 <Comments />
                 <small className='text-[#787486] font-medium font-sans text-xs'>{task.coments} comments</small>

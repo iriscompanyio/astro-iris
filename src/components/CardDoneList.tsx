@@ -29,7 +29,7 @@ const CardDoneList = ({ id, idProject, setProjects, task, totalTasks, change, se
                 <div className='rounded w-16' style={{ backgroundColor: task.priority === "Low" ? "rgba(223, 168, 116, 0.2)" : task.priority === "High" ? "rgba(216, 114, 125, 0.1)" : "rgba(0, 21, 255, 0.1)" }}>
                     <p className='text-center' style={{ color: task.priority === "Low" ? "#D58D49" : task.priority === "High" ? "#D8727D" : "rgba(0, 21, 255, 1)" }}>{task.priority}</p>
                 </div>
-                <h1 className='text-lg font-semibold font-sans w-36'>{task.title}</h1>
+                <h1 className='text-lg font-semibold font-sans w-36 truncate'>{task.title}</h1>
                 <span className='text-xs font-normal font-sans text-[#787486] truncate w-36'>{task.description}</span>
                 <div className='flex items-center gap-2 w-36'>
                     <Comments />

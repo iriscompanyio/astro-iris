@@ -116,8 +116,6 @@ const DashboardTask = () => {
             const filteredIndicesDone = filteredTasksDone.map(({ ix }) => ix);
             setTaskDone(filteredDataDone);
             setIdsDone(filteredIndicesDone);
-
-            console.log(tasksToDo);
         }
 
 
@@ -125,7 +123,7 @@ const DashboardTask = () => {
 
     return (
         <div className='flex'>
-            <div className='w-1/6'>
+            <div className='w-1/6 border-r-2 pr-2'>
                 <div className='flex items-center gap-10 ml-5'>
                     <h1 className='text-xs font-sans font-bold text-[#787486]'>MY PROJECTS</h1>
                     <p className='w-6 h-6 rounded-md border-2 flex justify-center items-center text-lg cursor-pointer' onClick={openModal}>+</p>

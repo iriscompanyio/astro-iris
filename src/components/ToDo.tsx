@@ -16,7 +16,7 @@ const ToDo = ({ tasks, ids, idProject, projects, setProjects, totalTasks, setTot
     };
 
     return (
-        <div className='bg-[#F5F5F5] rounded-2xl h-[550px] w-3/4 overflow-y-scroll '>
+        <div className='bg-[#F5F5F5] rounded-2xl h-[550px] w-[90%] overflow-y-scroll '>
             <div className='flex justify-between items-center'>
                 <div className='flex items-center gap-5 pl-5 pt-5 mb-5'>
                     <p className='w-2 h-2 bg-[#5030E5] rounded-full flex justify-center items-center'></p>
