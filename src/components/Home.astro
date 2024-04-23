@@ -1,66 +1,79 @@
 ---
-import { Icon } from 'astro-icon';
+import { Icon } from "astro-icon";
 export interface Props {
-	title: string;
-	description: string;
-	body: string;
+  title: string;
+  description: string;
+  body: string;
 }
 
 const { title, description, body } = Astro.props;
 ---
 
-<div id="home" class="container mx-auto">
-	<div class="flex <md:h-900px lg:h-700px mr-2rem">
-		<div class ="flex-col my-auto <md:mx-3rem <md:my-auto lg:mx-4rem md:mx-4rem">
-			<div class="<lg:visible <lg:w-auto m-0.5rem lg:hidden md:hidden xl:hidden max-w-350px">
-				<img width="1000px" src="/home.svg">
-			</div>
-			<div class="<md:text-2xl text-6xl font-bold">
-				<p class="gradient">{title}</p>
-				<p class="dark:text-white light:text-black">{description}</p>
-			</div>
-			<div class="<md:text-base <lg:font-600 text-2xl dark:text-white light:text-black pt-2rem text-left">
-				<a>{body}</a>
-			</div>
-			<div class="flex flex-1 <lg:flex-col <lg:space-y-4 mx-auto py-4rem <md:mr-1.5rem lg:space-x-24 justify-center text-white font-bold">
-				<div class="bg-gradient-to-r from-purple to-blue rounded-md <md:w-full">
-					<a href="https://www.linkedin.com/company/iriscompanyio/">
-						<div class="flex flex-1 m-1 rounded-md dark:bg-dark">
-							<Icon name="mdi:linkedin" class="py-10px mx-2rem <md:h-10 h-12" />
-							<p class="<md:text-sm lg:w-50 py-12px h-12">Síguenos en Linkedin</p>
-						</div>
-					</a>
-				</div>
-				<div class="bg-gradient-to-r from-purple to-blue rounded-md <md:w-full">
-					<a href="https://discord.gg/yKBVyBvqDy">
-						<div class="flex flex-1 m-1 rounded-md dark:bg-dark">
-							<Icon name="ic:baseline-discord" class="py-10px mx-2rem <md:h-10 h-12" />
-							<p class="<md:text-sm lg:w-50 py-12px h-12">Visítanos en Discord</p>
-						</div>
-					</a>
-				</div>
-			</div>
-		</div>
-		<div class="<xl:hidden mx-2rem my-auto w-max-2500px">
-			<img width="3000px" src="/home.svg">
-		</div>
-		<!-- <div class="absolute pt-20rem -z-1">
+<div id="home" class="container mx-auto font-poppins">
+  <div class="flex <md:h-900px lg:h-700px mr-2rem">
+    <div class="flex-col my-auto <md:mx-3rem <md:my-auto lg:mx-4rem md:mx-4rem">
+      <div
+        class="<lg:visible <lg:w-auto m-0.5rem lg:hidden md:hidden xl:hidden max-w-350px"
+      >
+        <img width="1000px" src="/home.svg" />
+      </div>
+      <div class="<md:text-2xl text-6xl font-bold">
+        <p class="gradient">{title}</p>
+        <p class="dark:text-white light:text-black">{description}</p>
+      </div>
+      <div
+        class="<md:text-base <lg:font-600 text-2xl dark:text-white light:text-black pt-2rem text-left"
+      >
+        <a>{body}</a>
+      </div>
+      <div
+        class="flex flex-1 <lg:flex-col <lg:space-y-4 mx-auto py-4rem <md:mr-1.5rem lg:space-x-24 justify-center text-white font-bold"
+      >
+        <div class="bg-gradient-to-r from-purple to-blue rounded-md <md:w-full">
+          <a href="https://www.linkedin.com/company/iriscompanyio/">
+            <div class="flex flex-1 m-1 rounded-md dark:bg-dark">
+              <Icon name="mdi:linkedin" class="py-10px mx-2rem <md:h-10 h-12" />
+              <p class="<md:text-sm lg:w-50 py-12px h-12">
+                Síguenos en Linkedin
+              </p>
+            </div>
+          </a>
+        </div>
+        <div class="bg-gradient-to-r from-purple to-blue rounded-md <md:w-full">
+          <a href="https://discord.gg/yKBVyBvqDy">
+            <div class="flex flex-1 m-1 rounded-md dark:bg-dark">
+              <Icon
+                name="ic:baseline-discord"
+                class="py-10px mx-2rem <md:h-10 h-12"
+              />
+              <p class="<md:text-sm lg:w-50 py-12px h-12">
+                Visítanos en Discord
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="<xl:hidden mx-2rem my-auto w-max-2500px">
+      <img width="3000px" src="/home.svg" />
+    </div>
+    <!-- <div class="absolute pt-20rem -z-1">
 			<img width="400px" src="/circle.svg">
 		</div> -->
 
-		<div class="absolute <lg:hidden right-0 top-0">
-			<img width="300px" src="/circle-right.svg">
-		</div>
-	</div>
+    <div class="absolute <lg:hidden right-0 top-0">
+      <img width="300px" src="/circle-right.svg" />
+    </div>
+  </div>
 </div>
 
 <style>
-	.gradient {
-		font-size:larger;
-		font-weight: bold;	
-		/* font-family: Poppins; */
-			background: linear-gradient(to right, #4646F9, #9130F4);
-			-webkit-text-fill-color: transparent;
-			-webkit-background-clip: text;
-}
+  .gradient {
+    font-size: larger;
+    font-weight: bold;
+    /* font-family: Poppins; */
+    background: linear-gradient(to right, #4646f9, #9130f4);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+  }
 </style>

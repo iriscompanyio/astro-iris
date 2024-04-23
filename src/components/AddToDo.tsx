@@ -60,28 +60,28 @@ const AddToDo = ({ closeModal, idProject, projects, setProjects, totalTasks, set
             >
                 <div className='flex justify-center items-center gap-5 mt-20'>
                     <p className='w-2 h-2 bg-[#5030E5] rounded-full flex justify-center items-center' />
-                    <h1 className='text-center font-sans text-2xl font-semibold'>Add new task</h1>
+                    <h1 className='text-center text-2xl font-semibold font-poppins'>Add new task</h1>
                 </div>
                 <form onSubmit={handleSubmit} className="max-w-md mx-auto p-6 bg-gray-100 rounded-lg mt-10">
                     <div>
-                        <label className="block mb-2">Priority:</label>
+                        <label className="block mb-2 font-poppins">Priority:</label>
                         <select
                             required
                             name='priority'
                             onChange={handleChangeSelect}
-                            className="appearance-none text-center bg-gray-300 text-black font-semibold w-1/3 sm:w-full max-w-xs ml-3 sm:ml-0"
+                            className="appearance-none text-center font-poppins bg-gray-300 text-black font-semibold w-1/3 sm:w-full max-w-xs ml-3 sm:ml-0"
                         >
                             <option value={""} selected disabled>
                                 Select Priority
                             </option>
                             <option
-                                value={"Low"} className=''>Low</option>
+                                value={"Low"} >Low</option>
                             <option value={"Medium"}>Medium</option>
                             <option value={"High"}>High</option>
                         </select>
                     </div>
                     <div>
-                        <label className="block mb-2">Title:</label>
+                        <label className="block mb-2 font-poppins">Title:</label>
                         <input
                             required
                             type="text"
@@ -92,7 +92,7 @@ const AddToDo = ({ closeModal, idProject, projects, setProjects, totalTasks, set
                         />
                     </div>
                     <div>
-                        <label className="block mb-2">Description :</label>
+                        <label className="block mb-2 font-poppins">Description :</label>
                         <input
                             required
                             type="text"
@@ -102,7 +102,7 @@ const AddToDo = ({ closeModal, idProject, projects, setProjects, totalTasks, set
                             className="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500"
                         />
                     </div>
-                    <button type="submit" className="w-full mt-4 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300">Create Task</button>
+                    <button type="submit" className="w-full mt-4 bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 font-poppins">Create Task</button>
                 </form>
             </div>
         </div>

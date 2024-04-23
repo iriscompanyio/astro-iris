@@ -1,9 +1,10 @@
 ---
 import { AppConfig } from "@utils/AppConfig";
 import INav from "@components/INav.astro";
+const isDashboard = () => Astro.url.pathname === "/dashboard";
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -15,7 +16,11 @@ import INav from "@components/INav.astro";
   </head>
   <body>
     <div class="dark:bg-dark light:bg-white w-full h-full">
-      <INav />
+      {
+         isDashboard() ? <></>:
+            <INav />
+        
+      }
       <slot />
       <!-- <Footer /> colocar en esta sección el footer-->
     </div>

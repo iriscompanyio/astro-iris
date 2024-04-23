@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import 'animate.css';
 
 interface Images {
   backend: string[];
@@ -22,10 +23,23 @@ const Stack = () => {
 
   const setActiveItem = (item: typeof navItems[number]) => {
     setActive(item);
+    applyAnimationEffect();
+  };
+
+  const applyAnimationEffect = () => {
+    const element = document.getElementById('sectionImages');
+    if (element) {
+
+      element.classList.remove('animate__animated', 'animate__fadeIn', 'animate__slow', 'animate__repeat-1');
+
+      setTimeout(() => {
+        element.classList.add('animate__animated', 'animate__fadeIn', 'animate__slow', 'animate__repeat-1');
+      }, 0);
+    }
   };
 
   return (
-    <div id="herramientas" className="text-center h-auto lg:h-[300px] my-10 lg:my-0">
+    <div id="herramientas" className="text-center h-auto lg:h-[300px] my-10 lg:my-0 font-poppins">
       <h1 className='text-[35px] font-bold dark:text-stone-100 text-black'>Nuestras</h1>
       <h1 className='text-[35px] font-bold mb-[2rem] dark:text-stone-100 text-black'>Herramientas</h1>
 
@@ -37,7 +51,7 @@ const Stack = () => {
         ))}
       </div>
 
-      <div className="max-w-screen-lg items-center flex flex-wrap mx-auto">
+      <div id='sectionImages' className="max-w-screen-lg items-center flex flex-wrap mx-auto">
         {images[active].map((image, index) => (
           <img className='text-center mx-auto items-center' key={index} src={image} alt={`${active} Image ${index + 1}`} />
         ))}

@@ -30,6 +30,7 @@ import "virtual:windi.css";
       <li>
         <a
           href="#home"
+          id="seccion1"
           class="mx-0.5rem px-15px py-10px light:text-white dark:bg-hex-4646fa light:bg-[#9130f4] rounded-50px cursor-pointer"
           >inicio</a
         >
@@ -37,6 +38,7 @@ import "virtual:windi.css";
       <li>
         <a
           href="#aboutus"
+          id="seccion2"
           class="mx-0.5rem px-15px py-10px dark:hover:bg-hex-4646fa light:hover:bg-[#9130f4] hover:text-white rounded-50px cursor-pointer"
           >About us</a
         >
@@ -44,6 +46,7 @@ import "virtual:windi.css";
       <li>
         <a
           href="#herramientas"
+          id="seccion3"
           class="mx-0.5rem px-15px py-10px dark:hover:bg-hex-4646fa light:hover:bg-[#9130f4] hover:text-white rounded-50px cursor-pointer"
           >Herramientas</a
         >
@@ -51,6 +54,7 @@ import "virtual:windi.css";
       <li>
         <a
           href="#redes"
+          id="seccion4"
           class="mx-0.5rem px-15px py-10px dark:hover:bg-hex-4646fa light:hover:bg-[#9130f4] hover:text-white rounded-50px cursor-pointer"
           >Redes</a
         >
@@ -58,6 +62,7 @@ import "virtual:windi.css";
       <li>
         <a
           href="#web"
+          id="seccion5"
           class="mx-0.5rem px-15px py-10px dark:hover:bg-hex-4646fa light:hover:bg-[#9130f4] hover:text-white rounded-50px cursor-pointer"
           >Servicios</a
         >
@@ -65,6 +70,7 @@ import "virtual:windi.css";
       <li>
         <a
           href="#clients"
+          id="seccion6"
           class="mx-0.5rem px-15px py-10px dark:hover:bg-hex-4646fa light:hover:bg-[#9130f4] hover:text-white rounded-50px cursor-pointer"
           >clientes</a
         >
@@ -72,6 +78,7 @@ import "virtual:windi.css";
       <li>
         <a
           href="#faq"
+          id="seccion7"
           class="mx-1rem px-15px py-10px dark:hover:bg-hex-4646fa light:hover:bg-[#9130f4] hover:text-white rounded-50px cursor-pointer"
           >FAQs</a
         >
@@ -203,4 +210,74 @@ import "virtual:windi.css";
       localStorage.theme = "dark";
     }
   });
+</script>
+
+<script>
+  function smoothScroll(targetId: string) {
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: "smooth" });
+    } else {
+      console.error(`El elemento con el ID '${targetId}' no fue encontrado.`);
+    }
+  }
+
+  window.onload = function () {
+    const linkSeccion1 = document.getElementById("seccion1");
+    const linkSeccion2 = document.getElementById("seccion2");
+    const linkSeccion3 = document.getElementById("seccion3");
+    const linkSeccion4 = document.getElementById("seccion4");
+    const linkSeccion5 = document.getElementById("seccion5");
+    const linkSeccion6 = document.getElementById("seccion6");
+    const linkSeccion7 = document.getElementById("seccion7");
+
+    if (linkSeccion1) {
+      linkSeccion1.addEventListener("click", function (event) {
+        event.preventDefault();
+        smoothScroll("home");
+      });
+    }
+
+    if (linkSeccion2) {
+      linkSeccion2.addEventListener("click", function (event) {
+        event.preventDefault();
+        smoothScroll("aboutus");
+      });
+    }
+
+    if (linkSeccion3) {
+      linkSeccion3.addEventListener("click", function (event) {
+        event.preventDefault();
+        smoothScroll("herramientas");
+      });
+    }
+
+    if (linkSeccion4) {
+      linkSeccion4.addEventListener("click", function (event) {
+        event.preventDefault();
+        smoothScroll("redes");
+      });
+    }
+
+    if (linkSeccion5) {
+      linkSeccion5.addEventListener("click", function (event) {
+        event.preventDefault();
+        smoothScroll("web");
+      });
+    }
+
+    if (linkSeccion6) {
+      linkSeccion6.addEventListener("click", function (event) {
+        event.preventDefault();
+        smoothScroll("clients");
+      });
+    }
+
+    if (linkSeccion7) {
+      linkSeccion7.addEventListener("click", function (event) {
+        event.preventDefault();
+        smoothScroll("faq");
+      });
+    }
+  };
 </script>

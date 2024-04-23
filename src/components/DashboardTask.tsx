@@ -125,8 +125,8 @@ const DashboardTask = () => {
         <div className='flex'>
             <div className='w-1/6 border-r-2 pr-2'>
                 <div className='flex items-center gap-10 ml-5'>
-                    <h1 className='text-xs font-sans font-bold text-[#787486]'>MY PROJECTS</h1>
-                    <p className='w-6 h-6 rounded-md border-2 flex justify-center items-center text-lg cursor-pointer' onClick={openModal}>+</p>
+                    <h1 className='text-xs font-bold text-[#787486] font-poppins'>MY PROJECTS</h1>
+                    <p className='w-6 h-6 rounded-md border-2 flex justify-center items-center text-lg cursor-pointer font-poppins' onClick={openModal}>+</p>
                 </div>
                 <hr className='bg-[#DBDBDB] w-4/5 h-[2px] ml-5' />
                 <div>
@@ -136,7 +136,7 @@ const DashboardTask = () => {
                                 <p className='w-2 h-2 rounded-full' style={{ backgroundColor: `${project.color}` }} />
                                 <h2 onClick={() => {
                                     setIdView(ix);
-                                }} className={`font-sans font-medium cursor-pointer ${ix === idView ? "bg-slate-200" : ""}  w-full hover:transition-all hover:delay-75 truncate`}>{project.name}</h2>
+                                }} className={`font-poppins font-medium cursor-pointer ${ix === idView ? "bg-slate-200" : ""}  w-full hover:transition-all hover:delay-75 truncate`}>{project.name}</h2>
                             </li>
                         )}
                     </ul>
