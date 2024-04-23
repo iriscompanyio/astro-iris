@@ -4,7 +4,7 @@ export interface Props {
 }
 const { title_project } = Astro.props;
 import { Icon } from "astro-icon";
-import projects  from "../data/projects.json"
+import projects from "../data/projects.json";
 ---
 
 <div id="clients" class="<2xl:mt-12">
@@ -38,9 +38,9 @@ import projects  from "../data/projects.json"
           <div class="slider <lg:w-50 lg:w-60rem">
             <div class="slide-track-lg slide-track-animation-1 items-center">
               {
-                projects.map(({link, photo}) => (
+                projects.map(({ link, photo }) => (
                   <div class="slide">
-                    <a href={link} >
+                    <a href={link}>
                       <img src={photo} alt="" />
                     </a>
                   </div>
@@ -136,7 +136,7 @@ import projects  from "../data/projects.json"
           dots[activeDotNum].classList.remove("!bg-[#10054D]");
           dots[Number(clickedDotNum)].classList.add("!bg-[#10054D]");
         }
-        
+
         var actual_number = 0;
         actual_number = 1000 * Number(clickedDotNum);
         slide_animation!.style.transform =
@@ -205,6 +205,4 @@ import projects  from "../data/projects.json"
       transform: translateX(calc(-200px * 7));
     }
   }
-
-  
 </style>

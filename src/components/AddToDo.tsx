@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from 'react'
 
-const AddToDo = ({ closeModal, totalTasks, setTotalTasks }: any) => {
+const AddToDo = ({ closeModal, idProject, projects, setProjects, totalTasks, setTotalTasks }: any) => {
 
     const modalRef = useRef<HTMLDivElement>(null);
 
@@ -40,12 +40,15 @@ const AddToDo = ({ closeModal, totalTasks, setTotalTasks }: any) => {
     };
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+        setTotalTasks((prevTasks: any) => [...prevTasks, datos]);
+        setProjects((prevProjects: any) => [
+            ...prevProjects.slice(0, idProject),
+            { ...prevProjects[idProject], tasks: [...prevProjects[idProject].tasks, datos] },
+            ...prevProjects.slice(idProject + 1)
+        ]);
+
         event.preventDefault();
-        setTotalTasks([...totalTasks, datos]);
-        // Aquí puedes hacer lo que quieras con los datos
-        console.log(datos);
         closeModal();
-        // Por ejemplo, podrías enviar los datos a través de una solicitud HTTP
     };
 
 

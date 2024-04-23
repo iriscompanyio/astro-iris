@@ -1,9 +1,8 @@
 import { useState } from 'react'
-import CardToDo from './CardToDo'
 import AddToDo from './AddToDo';
 import CardToDoList from './CardToDoList';
 
-const ToDoList = ({ tasks, ids, totalTasks, setTotalTasks, change, setChange }: any) => {
+const ToDoList = ({ tasks, ids, idProject, projects, setProjects, totalTasks, setTotalTasks, change, setChange }: any) => {
     const [isOpenModal, setIsOpenModal] = useState(false);
 
     const openModal = () => {
@@ -31,11 +30,11 @@ const ToDoList = ({ tasks, ids, totalTasks, setTotalTasks, change, setChange }: 
             <div className='flex flex-col items-center gap-3 mt-5'>
                 {tasks.map((task: any, ix: number) =>
                 (
-                    <CardToDoList key={ix} id={ids[ix]} task={task} totalTasks={totalTasks} setTotalTasks={setTotalTasks} change={change} setChange={setChange} />
+                    <CardToDoList key={ix} id={ids[ix]} idProject={idProject} setProjects={setProjects} task={task} totalTasks={totalTasks} change={change} setChange={setChange} />
                 )
                 )}
             </div>
-            {isOpenModal && <AddToDo closeModal={closeModal} totalTasks={totalTasks} setTotalTasks={setTotalTasks} />}
+            {isOpenModal && <AddToDo closeModal={closeModal} idProject={idProject} projects={projects} setProjects={setProjects} totalTasks={totalTasks} setTotalTasks={setTotalTasks} />}
         </div >
     )
 }

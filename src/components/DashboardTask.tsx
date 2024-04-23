@@ -25,7 +25,7 @@ interface Project {
 
 const DashboardTask = () => {
 
-    const [tasks, setTasks] = useState([{
+    /* const [tasks, setTasks] = useState([{
         state: "to do",
         priority: "Low",
         title: "Responsive Web",
@@ -52,7 +52,8 @@ const DashboardTask = () => {
         title: "Corregir Slider",
         description: "Falta el modo responsive",
         coments: 7
-    }]);
+    }]); */
+
 
     const [change, setChange] = useState(false);
     const [tasksOnProgress, setTaskOnProgress] = useState<Task[]>([]);
@@ -62,38 +63,6 @@ const DashboardTask = () => {
     const [idsOnProgress, setIdsOnProgress] = useState<number[]>([]);
     const [idsDone, setIdsDone] = useState<number[]>([]);
 
-    useEffect(() => {
-
-        const filteredTasksOnProgress = tasks
-            .map((task: any, ix: number) => ({ task, ix }))
-            .filter(({ task }) => task.state === 'on progress');
-
-        const filteredDataOnProgress = filteredTasksOnProgress.map(({ task }) => task);
-        const filteredIndicesOnProgress = filteredTasksOnProgress.map(({ ix }) => ix);
-
-        setIdsOnProgress(filteredIndicesOnProgress);
-
-        setTaskOnProgress(filteredDataOnProgress);
-
-        const filteredTasksToDo = tasks
-            .map((task: any, ix: number) => ({ task, ix }))
-            .filter(({ task }) => task.state === 'to do');
-
-        const filteredDataTodo = filteredTasksToDo.map(({ task }) => task);
-        const filteredIndicesTodo = filteredTasksToDo.map(({ ix }) => ix);
-        setTaskToDo(filteredDataTodo);
-        setIdsToDo(filteredIndicesTodo);
-
-        const filteredTasksDone = tasks
-            .map((task: any, ix: number) => ({ task, ix }))
-            .filter(({ task }) => task.state === 'done');
-
-        const filteredDataDone = filteredTasksDone.map(({ task }) => task);
-        const filteredIndicesDone = filteredTasksDone.map(({ ix }) => ix);
-        setTaskDone(filteredDataDone);
-        setIdsDone(filteredIndicesDone);
-    }, [change])
-
     const [viewData, setViewData] = useState('box');
 
     const handleChangeViewData = (value: string) => {
@@ -101,7 +70,7 @@ const DashboardTask = () => {
     }
 
     const [projects, setProjects] = useState<Project[]>([]);
-
+    const [idView, setIdView] = useState(0);
 
     const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -114,6 +83,45 @@ const DashboardTask = () => {
         setChange(!change);
     };
 
+    const [valueTasks, setValuesTasks] = useState<Task[]>([]);
+
+    useEffect(() => {
+        if (projects.length > 0) {
+            setValuesTasks(projects[idView]?.tasks);
+            const filteredTasksOnProgress = projects[idView]?.tasks
+                .map((task: Task, ix: number) => ({ task, ix }))
+                .filter(({ task }) => task.state === 'on progress');
+
+            const filteredDataOnProgress = filteredTasksOnProgress.map(({ task }) => task);
+            const filteredIndicesOnProgress = filteredTasksOnProgress.map(({ ix }) => ix);
+
+            setIdsOnProgress(filteredIndicesOnProgress);
+
+            setTaskOnProgress(filteredDataOnProgress);
+
+            const filteredTasksToDo = projects[idView].tasks
+                .map((task: Task, ix: number) => ({ task, ix }))
+                .filter(({ task }) => task.state === 'to do');
+
+            const filteredDataTodo = filteredTasksToDo.map(({ task }) => task);
+            const filteredIndicesTodo = filteredTasksToDo.map(({ ix }) => ix);
+            setTaskToDo(filteredDataTodo);
+            setIdsToDo(filteredIndicesTodo);
+
+            const filteredTasksDone = projects[idView].tasks
+                .map((task: Task, ix: number) => ({ task, ix }))
+                .filter(({ task }) => task.state === 'done');
+
+            const filteredDataDone = filteredTasksDone.map(({ task }) => task);
+            const filteredIndicesDone = filteredTasksDone.map(({ ix }) => ix);
+            setTaskDone(filteredDataDone);
+            setIdsDone(filteredIndicesDone);
+
+            console.log(tasksToDo);
+        }
+
+
+    }, [change, idView]);
 
     return (
         <div className='flex'>
@@ -128,7 +136,9 @@ const DashboardTask = () => {
                         {projects.map((project: Project, ix: number) =>
                             <li key={ix} className='flex items-center ml-5 gap-3 my-2'>
                                 <p className='w-2 h-2 rounded-full' style={{ backgroundColor: `${project.color}` }} />
-                                <h2>{project.name}</h2>
+                                <h2 onClick={() => {
+                                    setIdView(ix);
+                                }} className={`font-sans font-medium cursor-pointer ${ix === idView ? "bg-slate-200" : ""}  w-full hover:transition-all hover:delay-75 truncate`}>{project.name}</h2>
                             </li>
                         )}
                     </ul>
@@ -136,61 +146,82 @@ const DashboardTask = () => {
                 {isOpenModal && <AddProject closeModal={closeModal} totalProjects={projects} setTotalProjects={setProjects} />}
             </div>
             <div className='w-full'>
-                <div className='flex justify-end mr-16 mb-5'>
-                    <div className='flex gap-3'>
-                        <div onClick={() => handleChangeViewData('list')} className={`${viewData == 'list' ? "bg-[#5030E5]" : ""} p-2 rounded-md cursor-pointer`}>
-                            <List />
-                        </div>
-                        <div onClick={() => handleChangeViewData('box')} className={`${viewData == 'box' ? "bg-[#5030E5]" : ""} p-2 rounded-md cursor-pointer`}>
-                            <Box />
-                        </div>
-                    </div>
-                </div>
-                {viewData == 'box' ?
+                {projects.length > 0 ?
                     <>
-                        <div className='grid grid-cols-3 place-items-center'>
-                            <ToDo tasks={tasksToDo}
-                                ids={idsToDo}
-                                totalTasks={tasks}
-                                setTotalTasks={setTasks}
-                                change={change}
-                                setChange={setChange} />
-                            <OnProgress tasks={tasksOnProgress}
-                                ids={idsOnProgress}
-                                totalTasks={tasks}
-                                setTotalTasks={setTasks}
-                                change={change}
-                                setChange={setChange} />
-                            <Done tasks={tasksDone}
-                                ids={idsDone}
-                                totalTasks={tasks}
-                                setTotalTasks={setTasks}
-                                change={change}
-                                setChange={setChange} />
+                        <div className='flex justify-end mr-16 mb-5'>
+                            <div className='flex gap-3'>
+                                <div onClick={() => handleChangeViewData('list')} className={`${viewData == 'list' ? "bg-[#5030E5]" : ""} p-2 rounded-md cursor-pointer`}>
+                                    <List />
+                                </div>
+                                <div onClick={() => handleChangeViewData('box')} className={`${viewData == 'box' ? "bg-[#5030E5]" : ""} p-2 rounded-md cursor-pointer`}>
+                                    <Box />
+                                </div>
+                            </div>
                         </div>
-                    </> : <>
-                        <div className='flex flex-col items-center justify-center gap-5'>
-                            <ToDoList tasks={tasksToDo}
-                                ids={idsToDo}
-                                totalTasks={tasks}
-                                setTotalTasks={setTasks}
-                                change={change}
-                                setChange={setChange} />
-                            <OnProgressList tasks={tasksOnProgress}
-                                ids={idsOnProgress}
-                                totalTasks={tasks}
-                                setTotalTasks={setTasks}
-                                change={change}
-                                setChange={setChange} />
-                            <DoneLisT tasks={tasksDone}
-                                ids={idsDone}
-                                totalTasks={tasks}
-                                setTotalTasks={setTasks}
-                                change={change}
-                                setChange={setChange} />
-                        </div>
-                    </>
+                        {viewData == 'box' ?
+                            <>
+                                <div className='grid grid-cols-3 place-items-center'>
+                                    <ToDo
+                                        tasks={tasksToDo}
+                                        ids={idsToDo}
+                                        idProject={idView}
+                                        projects={projects}
+                                        setProjects={setProjects}
+                                        totalTasks={valueTasks}
+                                        setTotalTasks={setValuesTasks}
+                                        change={change}
+                                        setChange={setChange} />
+                                    <OnProgress
+                                        tasks={tasksOnProgress}
+                                        ids={idsOnProgress}
+                                        idProject={idView}
+                                        setProjects={setProjects}
+                                        totalTasks={valueTasks}
+                                        change={change}
+                                        setChange={setChange} />
+                                    <Done
+                                        tasks={tasksDone}
+                                        ids={idsDone}
+                                        idProject={idView}
+                                        setProjects={setProjects}
+                                        totalTasks={valueTasks}
+                                        change={change}
+                                        setChange={setChange} />
+                                </div>
+                            </> : <>
+                                <div className='flex flex-col items-center justify-center gap-5'>
+                                    <ToDoList
+                                        tasks={tasksToDo}
+                                        ids={idsToDo}
+                                        idProject={idView}
+                                        projects={projects}
+                                        setProjects={setProjects}
+                                        totalTasks={valueTasks}
+                                        setTotalTasks={setValuesTasks}
+                                        change={change}
+                                        setChange={setChange} />
+                                    <OnProgressList
+                                        tasks={tasksOnProgress}
+                                        ids={idsOnProgress}
+                                        idProject={idView}
+                                        setProjects={setProjects}
+                                        totalTasks={valueTasks}
+                                        change={change}
+                                        setChange={setChange} />
+                                    <DoneLisT
+                                        tasks={tasksDone}
+                                        ids={idsDone}
+                                        idProject={idView}
+                                        setProjects={setProjects}
+                                        totalTasks={valueTasks}
+                                        change={change}
+                                        setChange={setChange} />
+                                </div>
+                            </>
+                        }</> :
+                    <></>
                 }
+
             </div>
         </div>
     )

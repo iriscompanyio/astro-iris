@@ -1,31 +1,28 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Comments from 'src/assets/Comments'
 
-const CardToDo = ({ id, task, totalTasks, setTotalTasks, change, setChange }: any) => {
+
+const CardToDo = ({ id, idProject, setProjects, task, totalTasks, change, setChange }: any) => {
 
     const [seeAction, setSeeAction] = useState(false);
 
     const handleChangeProgress = () => {
-        let taskEdit = {
-            state: "on progress",
-            priority: task.priority,
-            title: task.title,
-            description: task.description,
-            coments: task.coments
-        }
-        setTotalTasks([...totalTasks.slice(0, id), ...totalTasks.slice(id + 1, totalTasks.lenth), taskEdit])
+
+        setProjects((prevProjects: any) => [
+            ...prevProjects.slice(0, idProject),
+            { ...prevProjects[idProject], tasks: [...totalTasks.slice(0, id), ...totalTasks.slice(id + 1, totalTasks.length), { ...totalTasks[id], state: 'on progress' }] },
+            ...prevProjects.slice(idProject + 1)
+        ]);
+
         setChange(!change);
     }
 
     const handleChangeDone = () => {
-        let taskEdit = {
-            state: "done",
-            priority: task.priority,
-            title: task.title,
-            description: task.description,
-            coments: task.coments
-        }
-        setTotalTasks([...totalTasks.slice(0, id), ...totalTasks.slice(id + 1, totalTasks.lenth), taskEdit])
+        setProjects((prevProjects: any) => [
+            ...prevProjects.slice(0, idProject),
+            { ...prevProjects[idProject], tasks: [...totalTasks.slice(0, id), ...totalTasks.slice(id + 1, totalTasks.length), { ...totalTasks[id], state: 'done' }] },
+            ...prevProjects.slice(idProject + 1)
+        ]);
         setChange(!change);
     }
 

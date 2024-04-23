@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
 import CardOnProgress from './CardOnProgress'
 
-const OnProgress = ({ tasks, ids, totalTasks, setTotalTasks, change, setChange }: any) => {
+const OnProgress = ({ tasks, ids, idProject, setProjects, totalTasks, change, setChange }: any) => {
 
     return (
         <div className='bg-[#F5F5F5] rounded-2xl h-[550px] w-3/4 overflow-y-scroll z-10'>
@@ -16,7 +15,7 @@ const OnProgress = ({ tasks, ids, totalTasks, setTotalTasks, change, setChange }
             <div className='flex flex-col items-center gap-5 mt-5'>
                 {tasks.map((task: any, ix: number) =>
                 (
-                    <CardOnProgress key={ix} id={ids[ix]} task={task} totalTasks={totalTasks} setTotalTasks={setTotalTasks} change={change} setChange={setChange} />
+                    <CardOnProgress key={ix} id={ids[ix]} idProject={idProject} setProjects={setProjects} task={task} totalTasks={totalTasks} change={change} setChange={setChange} />
                 )
                 )}</div>
         </div >

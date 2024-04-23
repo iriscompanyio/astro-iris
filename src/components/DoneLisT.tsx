@@ -1,6 +1,6 @@
 import CardDoneList from './CardDoneList';
 
-const DoneLisT = ({ tasks, ids, totalTasks, setTotalTasks, change, setChange }: any) => {
+const DoneLisT = ({ tasks, ids, idProject, setProjects, totalTasks, change, setChange }: any) => {
 
     return (
         <div className='bg-[#F5F5F5] rounded-2xl w-5/6 pb-3'>
@@ -15,7 +15,7 @@ const DoneLisT = ({ tasks, ids, totalTasks, setTotalTasks, change, setChange }: 
             <div className='flex flex-col items-center gap-3 mt-5'>
                 {tasks.map((task: any, ix: number) =>
                 (
-                    <CardDoneList key={ix} id={ids[ix]} task={task} totalTasks={totalTasks} setTotalTasks={setTotalTasks} change={change} setChange={setChange} />
+                    <CardDoneList key={ix} id={ids[ix]} idProject={idProject} setProjects={setProjects} task={task} totalTasks={totalTasks} change={change} setChange={setChange} />
                 )
                 )}
             </div>

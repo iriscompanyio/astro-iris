@@ -1,6 +1,6 @@
 import CardOnProgressList from './CardOnProgressList';
 
-const OnProgressList = ({ tasks, ids, totalTasks, setTotalTasks, change, setChange }: any) => {
+const OnProgressList = ({ tasks, ids, idProject, setProjects, totalTasks, change, setChange }: any) => {
 
     return (
         <div className='bg-[#F5F5F5] rounded-2xl w-5/6 pb-3'>
@@ -15,7 +15,7 @@ const OnProgressList = ({ tasks, ids, totalTasks, setTotalTasks, change, setChan
             <div className='flex flex-col items-center gap-3 mt-5'>
                 {tasks.map((task: any, ix: number) =>
                 (
-                    <CardOnProgressList key={ix} id={ids[ix]} task={task} totalTasks={totalTasks} setTotalTasks={setTotalTasks} change={change} setChange={setChange} />
+                    <CardOnProgressList key={ix} id={ids[ix]} idProject={idProject} setProjects={setProjects} task={task} totalTasks={totalTasks} change={change} setChange={setChange} />
                 )
                 )}
             </div>
