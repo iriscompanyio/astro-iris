@@ -158,7 +158,11 @@ const DashboardTask = () => {
                         </div>
                         {viewData == 'box' ?
                             <>
-                                <div className='grid grid-cols-3 place-items-center'>
+                                <div className='flex flex-col justify-center items-center'>
+                                    <h1 className='font-poppins font-semibold text-2xl'>{projects[idView].name}</h1>
+                                    <hr className='h-1 w-[70%]' style={{ backgroundColor: `${projects[idView].color}` }} />
+                                </div>
+                                <div className='grid grid-cols-3 place-items-center mt-3'>
                                     <ToDo
                                         tasks={tasksToDo}
                                         ids={idsToDo}
@@ -173,16 +177,20 @@ const DashboardTask = () => {
                                         tasks={tasksOnProgress}
                                         ids={idsOnProgress}
                                         idProject={idView}
+                                        projects={projects}
                                         setProjects={setProjects}
                                         totalTasks={valueTasks}
+                                        setTotalTasks={setValuesTasks}
                                         change={change}
                                         setChange={setChange} />
                                     <Done
                                         tasks={tasksDone}
                                         ids={idsDone}
                                         idProject={idView}
+                                        projects={projects}
                                         setProjects={setProjects}
                                         totalTasks={valueTasks}
+                                        setTotalTasks={setValuesTasks}
                                         change={change}
                                         setChange={setChange} />
                                 </div>

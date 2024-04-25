@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import 'react-quill/dist/quill.snow.css';
 
 
-const InfoTask = ({ closeModal, id, priority, change, setChange, name, description, idProject, setProjects, setTotalTasks, comments, setComments }: any) => {
+const InfoTask = ({ closeModal, id, priority, change, setChange, name, state, description, idProject, setProjects, setTotalTasks, comments, setComments }: any) => {
 
     const modalRef = useRef<HTMLDivElement>(null);
 
@@ -85,6 +85,15 @@ const InfoTask = ({ closeModal, id, priority, change, setChange, name, descripti
         closeModal();
     }
 
+    // Obtener la fecha y hora actual
+    const fechaActual = new Date();
+
+    // Configurar la zona horaria para Lima, Perú (UTC-5)
+    const opciones = { timeZone: 'America/Lima' };
+
+    // Obtener la fecha y hora en Lima, Perú
+    const fechaHoraLima = fechaActual.toLocaleString('es-PE', opciones);
+
 
     return (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-20">
@@ -116,17 +125,22 @@ const InfoTask = ({ closeModal, id, priority, change, setChange, name, descripti
                         </div>
                     </div>
                     <div className='flex flex-col items-center col-span-1'>
-                        <p className='text-lg font-semibold font-poppins'>Status Task</p>
+                        <div className='flex items-center gap-2 my-2'>
+                            <p className='text-base font-medium font-poppins'>State Task: </p>
+                            <p className='text-xl font-semibold font-poppins'>{state.toUpperCase()}</p>
+                        </div>
                         <div className='rounded w-16' style={{ backgroundColor: priority === "Low" ? "rgba(223, 168, 116, 0.2)" : priority === "High" ? "rgba(216, 114, 125, 0.1)" : "rgba(0, 21, 255, 0.1)" }}>
                             <p className='text-center font-poppins' style={{ color: priority === "Low" ? "#D58D49" : priority === "High" ? "#D8727D" : "rgba(0, 21, 255, 1)" }}>{priority}</p>
                         </div>
-                        <div className='border-2 border-gray-500 h-[500px] w-full mt-5'>
+                        <div className='border-[1px] border-gray-300 h-[500px] w-full mt-5 shadow-sm overflow-y-scroll'>
                             {comments.map((comment: any, id: number) => (
-                                <div className='flex gap-2 ml-5'>
-                                    <p>Comentario {id + 1}:</p>
-                                    <p key={id} className='text-black font-poppins text-left' dangerouslySetInnerHTML={{
-                                        __html: comment,
-                                    }} />
+                                <div className='mt-3'>
+                                    <p className='font-poppins text-xs ml-2'>Date: {fechaHoraLima}</p>
+                                    <div className='flex gap-2 mx-2 bg-stone-200 rounded border-2 border-gray-500'>
+                                        <p key={id} className='text-black font-poppins text-left' dangerouslySetInnerHTML={{
+                                            __html: comment,
+                                        }} />
+                                    </div>
                                 </div>
                             ))}
                         </div>
