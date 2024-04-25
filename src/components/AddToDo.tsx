@@ -22,7 +22,7 @@ const AddToDo = ({ closeModal, idProject, projects, setProjects, totalTasks, set
         priority: '',
         title: '',
         description: '',
-        coments: 0
+        comments: []
     });
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {

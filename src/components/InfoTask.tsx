@@ -1,0 +1,140 @@
+import { useEffect, useRef, useState } from 'react'
+import 'react-quill/dist/quill.snow.css';
+
+
+const InfoTask = ({ closeModal, id, priority, change, setChange, name, description, idProject, setProjects, setTotalTasks, comments, setComments }: any) => {
+
+    const modalRef = useRef<HTMLDivElement>(null);
+
+    const handleClickOutside = (event: MouseEvent) => {
+        if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+            closeModal();
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener("click", handleClickOutside, true);
+        return () => {
+            document.removeEventListener("click", handleClickOutside, true);
+        };
+    }, []);
+
+
+
+    const quillModules = {
+        toolbar: [
+            [{ header: [1, 2, 3, 4, 5, 6] }],
+            ["bold", "italic", "underline", "strike", "blockquote"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            ["link", "image"],
+            [{ align: [] }],
+            [{ color: [] }],
+            ["code-block"],
+            ["clean"],
+        ],
+    };
+
+    const quillFormats = [
+        "header",
+        "bold",
+        "italic",
+        "underline",
+        "strike",
+        "blockquote",
+        "list",
+        "bullet",
+        "link",
+        "image",
+        "align",
+        "color",
+        "code-block",
+    ];
+
+    const [content, setContent] = useState('');
+
+    const handleEditorChange = (value: any) => {
+        setContent(value);
+    };
+
+    const [QuillEditor, setQuillEditor] = useState<any>(null);
+
+    useEffect(() => {
+        const loadQuillEditor = async () => {
+            const module = await import('react-quill');
+            setQuillEditor(() => module.default);
+        };
+
+        loadQuillEditor();
+    }, []);
+
+    const sendData = () => {
+        setProjects((prevProjects: any) => [
+            ...prevProjects.slice(0, idProject),//Separo el primer proyecto
+            {//desestructuro el proyecto, pero entro a las tasks
+                ...prevProjects[idProject], tasks: [
+                    ...prevProjects[idProject].tasks.slice(0, id), { ...prevProjects[idProject].tasks[id], comments: [...comments, content] }, ...prevProjects[idProject].tasks.slice(id + 1, prevProjects[idProject].tasks.length)
+                ]
+            },
+            ...prevProjects.slice(idProject + 1)//Separo el ultimo proyecto
+        ]);
+        setChange(!change);
+        setContent('');
+    }
+
+    const exitInfo = () => {
+        closeModal();
+    }
+
+
+    return (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-20">
+            <div
+                ref={modalRef}
+                className="bg-gray-100 w-[90%] mx-5 h-[90%] p-4 rounded-[30px]"
+            >
+                <div className='grid grid-cols-3'>
+                    <div className='mx-2 col-span-2'>
+                        <h1 className='text-center text-2xl font-bold font-poppins tracking-wide'>Task: {name}</h1>
+                        <p className='text-left font-poppins font-semibold'>Description:</p>
+                        <p className='text-left font-poppins py-3'>{description}</p>
+                        <br />
+                        <small className='font-poppins tracking-wide font-medium'>Add comment</small>
+                        <div className='sm:h-[320px] xl:h-[295px] bg-white'>
+                            {QuillEditor &&
+                                <QuillEditor
+                                    modules={quillModules}
+                                    formats={quillFormats}
+                                    value={content}
+                                    onChange={handleEditorChange}
+                                    className="w-full h-[250px]"
+                                />
+                            }
+                        </div>
+                        <div className='flex justify-end gap-5'>
+                            <button onClick={exitInfo} className='bg-green-400 rounded w-20 h-8 text-slate-100 font-poppins text-lg'>Exit</button>
+                            <button onClick={sendData} className='bg-sky-600 rounded w-20 h-8 text-slate-100 font-poppins text-lg'>Send</button>
+                        </div>
+                    </div>
+                    <div className='flex flex-col items-center col-span-1'>
+                        <p className='text-lg font-semibold font-poppins'>Status Task</p>
+                        <div className='rounded w-16' style={{ backgroundColor: priority === "Low" ? "rgba(223, 168, 116, 0.2)" : priority === "High" ? "rgba(216, 114, 125, 0.1)" : "rgba(0, 21, 255, 0.1)" }}>
+                            <p className='text-center font-poppins' style={{ color: priority === "Low" ? "#D58D49" : priority === "High" ? "#D8727D" : "rgba(0, 21, 255, 1)" }}>{priority}</p>
+                        </div>
+                        <div className='border-2 border-gray-500 h-[500px] w-full mt-5'>
+                            {comments.map((comment: any, id: number) => (
+                                <div className='flex gap-2 ml-5'>
+                                    <p>Comentario {id + 1}:</p>
+                                    <p key={id} className='text-black font-poppins text-left' dangerouslySetInnerHTML={{
+                                        __html: comment,
+                                    }} />
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div >
+    )
+}
+
+export default InfoTask

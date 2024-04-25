@@ -31,7 +31,7 @@ const ToDo = ({ tasks, ids, idProject, projects, setProjects, totalTasks, setTot
             <div className='flex flex-col items-center gap-5 mt-5'>
                 {tasks.map((task: any, ix: number) =>
                 (
-                    <CardToDo key={ix} id={ids[ix]} idProject={idProject} setProjects={setProjects} task={task} totalTasks={totalTasks} change={change} setChange={setChange} />
+                    <CardToDo key={ix} id={ids[ix]} idProject={idProject} projects={projects} setProjects={setProjects} task={task} totalTasks={totalTasks} change={change} setChange={setChange} setTotalTasks={setTotalTasks} />
                 )
                 )}
             </div>

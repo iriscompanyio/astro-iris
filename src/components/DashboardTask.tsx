@@ -14,7 +14,7 @@ interface Task {
     priority: string,
     title: string,
     description: string,
-    coments: number
+    comments: string[]
 }
 
 interface Project {
