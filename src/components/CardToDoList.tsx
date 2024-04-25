@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Comments from "src/assets/Comments";
+import InfoTask from "./InfoTask";
 
-const CardToDoList = ({ id, idProject, setProjects, task, totalTasks, change, setChange }: any) => {
+const CardToDoList = ({ id, idProject, projects, setProjects, task, totalTasks, change, setChange, setTotalTasks }: any) => {
 
     const [seeAction, setSeeAction] = useState(false);
 
@@ -15,6 +16,7 @@ const CardToDoList = ({ id, idProject, setProjects, task, totalTasks, change, se
         setChange(!change);
     }
 
+
     const handleChangeDone = () => {
         setProjects((prevProjects: any) => [
             ...prevProjects.slice(0, idProject),
@@ -25,37 +27,70 @@ const CardToDoList = ({ id, idProject, setProjects, task, totalTasks, change, se
         setChange(!change);
     }
 
+    const [isOpenModal, setIsOpenModal] = useState(false);
+
+    const openModal = () => {
+        setIsOpenModal(true);
+    };
+
+    const closeModal = () => {
+        setIsOpenModal(false);
+    };
+
+    const [comments, setComments] = useState<string[]>([]);
+
+    useEffect(() => {
+        setComments(projects[idProject].tasks[id]?.comments)
+    }, [change, idProject])
+
+
+    const modalRef = useRef<HTMLDivElement>(null);
+
+    const handleClickOutside = (event: MouseEvent) => {
+        if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+            setSeeAction(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener("click", handleClickOutside, true);
+        return () => {
+            document.removeEventListener("click", handleClickOutside, true);
+        };
+    }, []);
+
     return (
-        <div className='w-[95%] bg-[#FFFFFF] rounded-2xl border-[1px] h-10 flex justify-between items-center'>
-            <div className="flex justify-around items-center w-full">
-                <div className='rounded w-16' style={{ backgroundColor: task.priority === "Low" ? "rgba(223, 168, 116, 0.2)" : task.priority === "High" ? "rgba(216, 114, 125, 0.1)" : "rgba(0, 21, 255, 0.1)" }}>
-                    <p className='text-center font-poppins' style={{ color: task.priority === "Low" ? "#D58D49" : task.priority === "High" ? "#D8727D" : "rgba(0, 21, 255, 1)" }}>{task.priority}</p>
+        <>
+            <div className='w-[95%] bg-[#FFFFFF] rounded-2xl border-[1px] h-10 flex justify-between items-center'>
+                <div className="flex justify-around items-center w-full cursor-pointer" onClick={openModal}>
+                    <div className='rounded w-16' style={{ backgroundColor: task.priority === "Low" ? "rgba(223, 168, 116, 0.2)" : task.priority === "High" ? "rgba(216, 114, 125, 0.1)" : "rgba(0, 21, 255, 0.1)" }}>
+                        <p className='text-center font-poppins' style={{ color: task.priority === "Low" ? "#D58D49" : task.priority === "High" ? "#D8727D" : "rgba(0, 21, 255, 1)" }}>{task.priority}</p>
+                    </div>
+                    <h1 className='text-lg font-semibold font-poppins w-36'>{task.title}</h1>
+                    <span className='text-xs font-normal font-poppins text-[#787486] truncate w-36'>{task.description}</span>
+                    <div className='flex items-center gap-2 w-36'>
+                        <Comments />
+                        <small className='text-[#787486] font-medium font-poppins text-xs'>{comments.length} comments</small>
+                    </div>
                 </div>
-                <h1 className='text-lg font-semibold font-poppins w-36'>{task.title}</h1>
-                <span className='text-xs font-normal font-poppins text-[#787486] truncate w-36'>{task.description}</span>
-                <div className='flex items-center gap-2 w-36'>
-                    <Comments />
-                    <small className='text-[#787486] font-medium font-poppins text-xs'>{task.coments} comments</small>
+                <div className='mr-5'>
+                    <div ref={modalRef} onClick={() => {
+                        setSeeAction(!seeAction);
+                    }} className='relative w-5 h-5 rounded-md bg-slate-400 flex justify-center items-center cursor-pointer select-none mr-8'>
+                        <p className='text-white text-xl mb-3 font-poppins'>...</p>
+                        {<div
+                            className={`absolute z-20 opacity-90 left-5 top-0 bg-slate-50 w-24 duration-500 ease-out overflow-hidden border-[1px] rounded ${seeAction ? "h-10" : "h-0  border-0 "
+                                }`}
+                        >
+                            <p className='text-[#FFA500] text-left bg-[#ffa50026] hover:bg-amber-200 font-semibold text-sm font-poppins' onClick={() => handleChangeProgress()}>On Progress</p>
+                            <p className='text-[#8BC48A] text-left bg-[#8bc48a26] hover:bg-green-200 font-semibold text-sm font-poppins' onClick={() => handleChangeDone()}>Done</p>
+
+                        </div>}
+                    </div>
                 </div>
-            </div>
-            <div className='mr-5'>
-                <div onClick={() => {
-                    setSeeAction(!seeAction);
-                }} className='relative w-5 h-5 rounded-md bg-slate-400 flex justify-center items-center cursor-pointer select-none mr-8'>
-                    <p className='text-white text-xl mb-3 font-poppins'>...</p>
-                    {<div
-                        className={`absolute z-20 opacity-90 left-5 top-0 bg-slate-50 w-24 duration-500 ease-out overflow-hidden border-[1px] rounded ${seeAction ? "h-10" : "h-0  border-0 "
-                            }`}
-                    >
-                        <p className='text-[#FFA500] text-left bg-[#ffa50026] hover:bg-amber-200 font-semibold text-sm font-poppins' onClick={() => handleChangeProgress()}>On Progress</p>
-                        <p className='text-[#8BC48A] text-left bg-[#8bc48a26] hover:bg-green-200 font-semibold text-sm font-poppins' onClick={() => handleChangeDone()}>Done</p>
-
-                    </div>}
-                </div>
-            </div>
 
 
-        </div>
+            </div>{isOpenModal && <InfoTask closeModal={closeModal} change={change} setChange={setChange} id={id} idProject={idProject} state={task.state} priority={task.priority} name={task.title} description={task.description} setProjects={setProjects} setTotalTasks={setTotalTasks} comments={comments} setComments={setComments} />}</>
     )
 }
 
