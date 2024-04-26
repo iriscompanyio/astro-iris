@@ -9,12 +9,17 @@ import OnProgressList from './OnProgressList'
 import DoneLisT from './DoneLisT'
 import AddProject from './AddProject'
 
+interface Comments {
+    comment: string,
+    date: string
+}
+
 interface Task {
     state: string,
     priority: string,
     title: string,
     description: string,
-    comments: string[]
+    comments: Comments[]
 }
 
 interface Project {

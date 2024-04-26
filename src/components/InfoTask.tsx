@@ -68,13 +68,24 @@ const InfoTask = ({ closeModal, id, priority, change, setChange, name, state, de
         loadQuillEditor();
     }, []);
 
+
+
+    // Obtener la fecha y hora actual
+    const fechaActual = new Date();
+
+    // Configurar la zona horaria para Lima, Perú (UTC-5)
+    const opciones = { timeZone: 'America/Lima' };
+
+    // Obtener la fecha y hora en Lima, Perú
+    const fechaHoraLima = fechaActual.toLocaleString('es-PE', opciones);
+
     const sendData = () => {
         if (content != '') {
             setProjects((prevProjects: any) => [
                 ...prevProjects.slice(0, idProject),//Separo el primer proyecto
                 {//desestructuro el proyecto, pero entro a las tasks
                     ...prevProjects[idProject], tasks: [
-                        ...prevProjects[idProject].tasks.slice(0, id), { ...prevProjects[idProject].tasks[id], comments: [...comments, content] }, ...prevProjects[idProject].tasks.slice(id + 1, prevProjects[idProject].tasks.length)
+                        ...prevProjects[idProject].tasks.slice(0, id), { ...prevProjects[idProject].tasks[id], comments: [...comments, { comment: content, date: fechaHoraLima }] }, ...prevProjects[idProject].tasks.slice(id + 1, prevProjects[idProject].tasks.length)
                     ]
                 },
                 ...prevProjects.slice(idProject + 1)//Separo el ultimo proyecto
@@ -90,15 +101,6 @@ const InfoTask = ({ closeModal, id, priority, change, setChange, name, state, de
     const exitInfo = () => {
         closeModal();
     }
-
-    // Obtener la fecha y hora actual
-    const fechaActual = new Date();
-
-    // Configurar la zona horaria para Lima, Perú (UTC-5)
-    const opciones = { timeZone: 'America/Lima' };
-
-    // Obtener la fecha y hora en Lima, Perú
-    const fechaHoraLima = fechaActual.toLocaleString('es-PE', opciones);
 
     const [isOpenAlert, setIsOpenAlert] = useState(false);
 
@@ -151,10 +153,10 @@ const InfoTask = ({ closeModal, id, priority, change, setChange, name, state, de
                             <div className='border-[1px] border-gray-300 h-[500px] w-full mt-5 shadow-sm overflow-y-scroll'>
                                 {comments.map((comment: any, id: number) => (
                                     <div className='mt-3'>
-                                        <p className='font-poppins text-xs ml-2'>Date: {fechaHoraLima}</p>
+                                        <p className='font-poppins text-xs ml-2'>Date: {comment.date}</p>
                                         <div className='flex gap-2 mx-2 bg-stone-200 rounded border-2 border-gray-500'>
                                             <div key={id} className='text-black font-poppins text-left' dangerouslySetInnerHTML={{
-                                                __html: comment,
+                                                __html: comment.comment,
                                             }} />
                                         </div>
                                     </div>

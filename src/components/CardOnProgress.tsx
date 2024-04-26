@@ -3,6 +3,12 @@ import Comments from 'src/assets/Comments'
 import InfoTask from './InfoTask';
 
 //id -> id task
+
+interface CommentsType {
+    comment: string,
+    date: string
+}
+
 const CardOnProgress = ({ id, idProject, projects, setProjects, task, totalTasks, change, setChange, setTotalTasks }: any) => {
 
     const [seeAction, setSeeAction] = useState(false);
@@ -38,7 +44,7 @@ const CardOnProgress = ({ id, idProject, projects, setProjects, task, totalTasks
         setIsOpenModal(false);
     };
 
-    const [comments, setComments] = useState<string[]>([]);
+    const [comments, setComments] = useState<CommentsType[]>([]);
 
     useEffect(() => {
         setComments(projects[idProject].tasks[id]?.comments)

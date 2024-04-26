@@ -2,6 +2,11 @@ import { useEffect, useRef, useState } from 'react'
 import Comments from 'src/assets/Comments'
 import InfoTask from './InfoTask';
 
+interface CommentsType {
+    comment: string,
+    date: string
+}
+
 const CardDone = ({ id, idProject, projects, setProjects, task, totalTasks, change, setChange, setTotalTasks }: any) => {
 
     const [seeAction, setSeeAction] = useState(false);
@@ -36,7 +41,7 @@ const CardDone = ({ id, idProject, projects, setProjects, task, totalTasks, chan
         setIsOpenModal(false);
     };
 
-    const [comments, setComments] = useState<string[]>([]);
+    const [comments, setComments] = useState<CommentsType[]>([]);
 
     useEffect(() => {
         setComments(projects[idProject].tasks[id]?.comments)
