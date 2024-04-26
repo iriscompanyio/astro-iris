@@ -210,16 +210,20 @@ const DashboardTask = () => {
                                         tasks={tasksOnProgress}
                                         ids={idsOnProgress}
                                         idProject={idView}
+                                        projects={projects}
                                         setProjects={setProjects}
                                         totalTasks={valueTasks}
+                                        setTotalTasks={setValuesTasks}
                                         change={change}
                                         setChange={setChange} />
                                     <DoneLisT
                                         tasks={tasksDone}
                                         ids={idsDone}
                                         idProject={idView}
+                                        projects={projects}
                                         setProjects={setProjects}
                                         totalTasks={valueTasks}
+                                        setTotalTasks={setValuesTasks}
                                         change={change}
                                         setChange={setChange} />
                                 </div>

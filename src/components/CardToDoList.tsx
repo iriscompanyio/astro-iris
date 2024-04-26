@@ -90,7 +90,9 @@ const CardToDoList = ({ id, idProject, projects, setProjects, task, totalTasks, 
                 </div>
 
 
-            </div>{isOpenModal && <InfoTask closeModal={closeModal} change={change} setChange={setChange} id={id} idProject={idProject} state={task.state} priority={task.priority} name={task.title} description={task.description} setProjects={setProjects} setTotalTasks={setTotalTasks} comments={comments} setComments={setComments} />}</>
+            </div>
+            {isOpenModal && <InfoTask closeModal={closeModal} change={change} setChange={setChange} id={id} idProject={idProject} state={task.state} priority={task.priority} name={task.title} description={task.description} setProjects={setProjects} setTotalTasks={setTotalTasks} comments={comments} setComments={setComments} />}
+        </>
     )
 }
 
