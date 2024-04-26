@@ -35,14 +35,32 @@ const AddProject = ({ closeModal, totalProjects, setTotalProjects }: any) => {
         setName(event.target.value);
     };
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const newProject = {
+        const newProjectData = {
             name: name,
             color: colorValue.hex,
             tasks: tasks
         };
-        setTotalProjects([...totalProjects, newProject]);
+
+        try {
+            const response = await fetch('http://localhost:5000/api/projects', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newProjectData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to create project');
+            }
+
+            const newProject = await response.json();
+        } catch (error) {
+            console.error('Error creating project:', error);
+        }
+        //setTotalProjects([...totalProjects, newProjectData]);
         closeModal();
     };
 

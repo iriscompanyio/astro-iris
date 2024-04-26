@@ -91,6 +91,21 @@ const DashboardTask = () => {
     const [valueTasks, setValuesTasks] = useState<Task[]>([]);
 
     useEffect(() => {
+        const fetchTasks = async () => {
+            try {
+                const response = await fetch('http://localhost:5000/api/projects');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch projects');
+                }
+                const projects = await response.json();
+                setProjects(projects);
+            } catch (error) {
+                console.error('Error fetching tasks:', error);
+            }
+        };
+
+        fetchTasks();
+
         if (projects.length > 0) {
             setValuesTasks(projects[idView]?.tasks);
             const filteredTasksOnProgress = projects[idView]?.tasks
@@ -125,6 +140,7 @@ const DashboardTask = () => {
 
 
     }, [change, idView]);
+
 
     return (
         <div className='flex'>

@@ -38,14 +38,26 @@ const AddToDo = ({ closeModal, idProject, projects, setProjects, totalTasks, set
             [event.target.name]: event.target.value
         });
     };
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+        const newTasks = [...projects[idProject].tasks, { ...datos }];
+        try {
+            const response = await fetch(`http://localhost:5000/api/projects/${projects[idProject]._id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ tasks: newTasks }),
+            });
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        setTotalTasks((prevTasks: any) => [...prevTasks, datos]);
-        setProjects((prevProjects: any) => [
-            ...prevProjects.slice(0, idProject),
-            { ...prevProjects[idProject], tasks: [...prevProjects[idProject].tasks, datos] },
-            ...prevProjects.slice(idProject + 1)
-        ]);
+            if (!response.ok) {
+                throw new Error('Failed to update task');
+            }
+
+            console.log('Task updated successfully');
+            // Realizar acciones adicionales si es necesario, como actualizar el estado de la aplicación.
+        } catch (error) {
+            console.error('Error updating task:', error);
+        }
 
         event.preventDefault();
         closeModal();
