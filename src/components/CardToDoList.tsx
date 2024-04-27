@@ -11,23 +11,51 @@ const CardToDoList = ({ id, idProject, projects, setProjects, task, totalTasks, 
 
     const [seeAction, setSeeAction] = useState(false);
 
-    const handleChangeProgress = () => {
-        setProjects((prevProjects: any) => [
-            ...prevProjects.slice(0, idProject),
-            { ...prevProjects[idProject], tasks: [...totalTasks.slice(0, id), ...totalTasks.slice(id + 1, totalTasks.length), { ...totalTasks[id], state: 'on progress' }] },
-            ...prevProjects.slice(idProject + 1)
-        ]);
+    const handleChangeProgress = async () => {
+
+        const taskUpdate = [...totalTasks.slice(0, id), ...totalTasks.slice(id + 1, totalTasks.length), { ...totalTasks[id], state: 'on progress' }];
+        try {
+            const response = await fetch(`http://localhost:5000/api/projects/${projects[idProject]._id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ tasks: taskUpdate }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update task');
+            }
+            console.log('Task updated successfully');
+            // Realizar acciones adicionales si es necesario, como actualizar el estado de la aplicación.
+        } catch (error) {
+            console.error('Error updating task:', error);
+        }
 
         setChange(!change);
     }
 
 
-    const handleChangeDone = () => {
-        setProjects((prevProjects: any) => [
-            ...prevProjects.slice(0, idProject),
-            { ...prevProjects[idProject], tasks: [...totalTasks.slice(0, id), ...totalTasks.slice(id + 1, totalTasks.length), { ...totalTasks[id], state: 'done' }] },
-            ...prevProjects.slice(idProject + 1)
-        ]);
+    const handleChangeDone = async () => {
+
+        const taskUpdate = [...totalTasks.slice(0, id), ...totalTasks.slice(id + 1, totalTasks.length), { ...totalTasks[id], state: 'done' }];
+        try {
+            const response = await fetch(`http://localhost:5000/api/projects/${projects[idProject]._id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ tasks: taskUpdate }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update task');
+            }
+            console.log('Task updated successfully');
+            // Realizar acciones adicionales si es necesario, como actualizar el estado de la aplicación.
+        } catch (error) {
+            console.error('Error updating task:', error);
+        }
 
         setChange(!change);
     }
