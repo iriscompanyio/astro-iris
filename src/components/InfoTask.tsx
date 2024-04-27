@@ -3,7 +3,7 @@ import 'react-quill/dist/quill.snow.css';
 import ModalAlert from './ModalAlert';
 
 
-const InfoTask = ({ closeModal, id, priority, change, setChange, name, state, description, idProject, setProjects, setTotalTasks, comments, setComments }: any) => {
+const InfoTask = ({ closeModal, id, priority, change, setChange, name, state, description, idProject, setProjects, totalTasks, comments, projects }: any) => {
 
     const modalRef = useRef<HTMLDivElement>(null);
 
@@ -68,8 +68,6 @@ const InfoTask = ({ closeModal, id, priority, change, setChange, name, state, de
         loadQuillEditor();
     }, []);
 
-
-
     // Obtener la fecha y hora actual
     const fechaActual = new Date();
 
@@ -79,9 +77,32 @@ const InfoTask = ({ closeModal, id, priority, change, setChange, name, state, de
     // Obtener la fecha y hora en Lima, Perú
     const fechaHoraLima = fechaActual.toLocaleString('es-PE', opciones);
 
-    const sendData = () => {
+    const sendData = async () => {
+
         if (content != '') {
-            setProjects((prevProjects: any) => [
+            const taskUpdate = [
+                ...projects[idProject].tasks.slice(0, id), { ...projects[idProject].tasks[id], comments: [...comments, { comment: content, date: fechaHoraLima }] }, ...projects[idProject].tasks.slice(id + 1, projects[idProject].tasks.length)
+            ]
+            try {
+                const response = await fetch(`http://localhost:5000/api/projects/${projects[idProject]._id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ tasks: taskUpdate }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to update task');
+                }
+                console.log('Task updated successfully');
+            } catch (error) {
+                console.error('Error updating task:', error);
+            }
+
+            setChange(!change);
+            setContent('');
+            /* setProjects((prevProjects: any) => [
                 ...prevProjects.slice(0, idProject),//Separo el primer proyecto
                 {//desestructuro el proyecto, pero entro a las tasks
                     ...prevProjects[idProject], tasks: [
@@ -89,13 +110,10 @@ const InfoTask = ({ closeModal, id, priority, change, setChange, name, state, de
                     ]
                 },
                 ...prevProjects.slice(idProject + 1)//Separo el ultimo proyecto
-            ]);
-            setChange(!change);
-            setContent('');
+            ]); */
         } else {
             openModalAlert();
         }
-
     }
 
     const exitInfo = () => {
@@ -152,10 +170,10 @@ const InfoTask = ({ closeModal, id, priority, change, setChange, name, state, de
                             </div>
                             <div className='border-[1px] border-gray-300 h-[500px] w-full mt-5 shadow-sm overflow-y-scroll'>
                                 {comments.map((comment: any, id: number) => (
-                                    <div className='mt-3'>
+                                    <div key={id} className='mt-3'>
                                         <p className='font-poppins text-xs ml-2'>Date: {comment.date}</p>
                                         <div className='flex gap-2 mx-2 bg-stone-200 rounded border-2 border-gray-500'>
-                                            <div key={id} className='text-black font-poppins text-left' dangerouslySetInnerHTML={{
+                                            <div className='text-black font-poppins text-left' dangerouslySetInnerHTML={{
                                                 __html: comment.comment,
                                             }} />
                                         </div>

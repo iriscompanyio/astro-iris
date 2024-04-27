@@ -30,36 +30,6 @@ interface Project {
 
 const DashboardTask = () => {
 
-    /* const [tasks, setTasks] = useState([{
-        state: "to do",
-        priority: "Low",
-        title: "Responsive Web",
-        description: "Falta maquetar bien tal cosa...",
-        coments: 9
-    },
-    {
-        state: "to do",
-        priority: "Medium",
-        title: "Responsive Adra",
-        description: "Falta maquetar bien las Cards",
-        coments: 15
-    },
-    {
-        state: "to do",
-        priority: "High",
-        title: "Iris Web",
-        description: "Falta agregar un Dashboard de tareas",
-        coments: 20
-    },
-    {
-        state: "to do",
-        priority: "Medium",
-        title: "Corregir Slider",
-        description: "Falta el modo responsive",
-        coments: 7
-    }]); */
-
-
     const [change, setChange] = useState(false);
     const [tasksOnProgress, setTaskOnProgress] = useState<Task[]>([]);
     const [tasksToDo, setTaskToDo] = useState<Task[]>([]);
@@ -145,7 +115,7 @@ const DashboardTask = () => {
             setTaskDone(filteredDataDone);
             setIdsDone(filteredIndicesDone);
         }
-    }, [projects, idView]);
+    }, [change, projects, idView]);
 
 
 

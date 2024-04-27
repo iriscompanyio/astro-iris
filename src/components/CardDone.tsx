@@ -27,7 +27,6 @@ const CardDone = ({ id, idProject, projects, setProjects, task, totalTasks, chan
                 throw new Error('Failed to update task');
             }
             console.log('Task updated successfully');
-            // Realizar acciones adicionales si es necesario, como actualizar el estado de la aplicación.
         } catch (error) {
             console.error('Error updating task:', error);
         }
@@ -57,7 +56,6 @@ const CardDone = ({ id, idProject, projects, setProjects, task, totalTasks, chan
                 throw new Error('Failed to update task');
             }
             console.log('Task updated successfully');
-            // Realizar acciones adicionales si es necesario, como actualizar el estado de la aplicación.
         } catch (error) {
             console.error('Error updating task:', error);
         }
@@ -89,6 +87,13 @@ const CardDone = ({ id, idProject, projects, setProjects, task, totalTasks, chan
         }
     };
 
+    useEffect(() => {
+        document.addEventListener("click", handleClickOutside, true);
+        return () => {
+            document.removeEventListener("click", handleClickOutside, true);
+        };
+    }, []);
+
     return (
         <>
             <div className='w-5/6 bg-[#FFFFFF] rounded-2xl border-[1px] h-36 '>
@@ -119,7 +124,7 @@ const CardDone = ({ id, idProject, projects, setProjects, task, totalTasks, chan
                     </div>
                 </div>
             </div>
-            {isOpenModal && <InfoTask closeModal={closeModal} change={change} setChange={setChange} id={id} idProject={idProject} state={task.state} priority={task.priority} name={task.title} description={task.description} setProjects={setProjects} setTotalTasks={setTotalTasks} comments={comments} setComments={setComments} />}
+            {isOpenModal && <InfoTask closeModal={closeModal} change={change} setChange={setChange} id={id} idProject={idProject} state={task.state} priority={task.priority} name={task.title} description={task.description} setProjects={setProjects} totalTasks={totalTasks} comments={comments} projects={projects} />}
         </>
     )
 }

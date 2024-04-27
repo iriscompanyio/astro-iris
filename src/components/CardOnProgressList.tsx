@@ -26,7 +26,6 @@ const CardOnProgressList = ({ id, idProject, projects, setProjects, task, totalT
                 throw new Error('Failed to update task');
             }
             console.log('Task updated successfully');
-            // Realizar acciones adicionales si es necesario, como actualizar el estado de la aplicación.
         } catch (error) {
             console.error('Error updating task:', error);
         }
@@ -49,7 +48,6 @@ const CardOnProgressList = ({ id, idProject, projects, setProjects, task, totalT
                 throw new Error('Failed to update task');
             }
             console.log('Task updated successfully');
-            // Realizar acciones adicionales si es necesario, como actualizar el estado de la aplicación.
         } catch (error) {
             console.error('Error updating task:', error);
         }

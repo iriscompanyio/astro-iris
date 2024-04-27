@@ -39,6 +39,8 @@ const AddToDo = ({ closeModal, idProject, projects, setProjects, totalTasks, set
         });
     };
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+
+        event.preventDefault();
         const newTasks = [...projects[idProject].tasks, { ...datos }];
         try {
             const response = await fetch(`http://localhost:5000/api/projects/${projects[idProject]._id}`, {
@@ -59,7 +61,6 @@ const AddToDo = ({ closeModal, idProject, projects, setProjects, totalTasks, set
             console.error('Error updating task:', error);
         }
 
-        event.preventDefault();
         closeModal();
     };
 
