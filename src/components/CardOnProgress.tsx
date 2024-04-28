@@ -28,12 +28,25 @@ const CardOnProgress = ({ id, idProject, projects, setProjects, task, totalTasks
             if (!response.ok) {
                 throw new Error('Failed to update task');
             }
-            console.log('Task updated successfully');
+            const fetchTasks = async () => {
+                try {
+                    const response = await fetch('http://localhost:5000/api/projects');
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch projects');
+                    }
+                    const projects = await response.json();
+                    return projects; // Retornamos los proyectos para usarlos en el efecto posterior
+                } catch (error) {
+                    return null; // En caso de error, retornamos null
+                }
+            };
+            fetchTasks().then((data) => {
+                setProjects(data)
+                setChange(!change);
+            });
         } catch (error) {
-            console.error('Error updating task:', error);
         }
 
-        setChange(!change);
     }
 
     const handleChangeDone = async () => {
@@ -51,12 +64,25 @@ const CardOnProgress = ({ id, idProject, projects, setProjects, task, totalTasks
             if (!response.ok) {
                 throw new Error('Failed to update task');
             }
-            console.log('Task updated successfully');
+            const fetchTasks = async () => {
+                try {
+                    const response = await fetch('http://localhost:5000/api/projects');
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch projects');
+                    }
+                    const projects = await response.json();
+                    return projects; // Retornamos los proyectos para usarlos en el efecto posterior
+                } catch (error) {
+                    return null; // En caso de error, retornamos null
+                }
+            };
+            fetchTasks().then((data) => {
+                setProjects(data)
+                setChange(!change);
+            });
         } catch (error) {
-            console.error('Error updating task:', error);
         }
 
-        setChange(!change);
     }
 
     const [isOpenModal, setIsOpenModal] = useState(false);
@@ -68,12 +94,6 @@ const CardOnProgress = ({ id, idProject, projects, setProjects, task, totalTasks
     const closeModal = () => {
         setIsOpenModal(false);
     };
-
-    const [comments, setComments] = useState<CommentsType[]>([]);
-
-    useEffect(() => {
-        setComments(projects[idProject].tasks[id]?.comments)
-    }, [change, idProject])
 
     const modalRef = useRef<HTMLDivElement>(null);
 
@@ -116,11 +136,11 @@ const CardOnProgress = ({ id, idProject, projects, setProjects, task, totalTasks
                     <p className='text-xs font-normal font-poppins mx-5 text-[#787486] truncate'>{task.description}</p>
                     <div className='flex items-center gap-2 mx-5'>
                         <Comments />
-                        <small className='text-[#787486] font-medium font-poppins text-xs'>{comments.length} comments</small>
+                        <small className='text-[#787486] font-medium font-poppins text-xs'>{projects[idProject].tasks[id]?.comments.length} comments</small>
                     </div>
                 </div>
             </div>
-            {isOpenModal && <InfoTask closeModal={closeModal} change={change} setChange={setChange} id={id} idProject={idProject} state={task.state} priority={task.priority} name={task.title} description={task.description} setProjects={setProjects} totalTasks={totalTasks} comments={comments} projects={projects} />}
+            {isOpenModal && <InfoTask closeModal={closeModal} change={change} setChange={setChange} id={id} idProject={idProject} state={task.state} priority={task.priority} name={task.title} description={task.description} setProjects={setProjects} totalTasks={totalTasks} comments={projects[idProject].tasks[id]?.comments} projects={projects} />}
         </>
     )
 }

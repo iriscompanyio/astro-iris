@@ -58,9 +58,7 @@ const AddProject = ({ closeModal, totalProjects, setTotalProjects }: any) => {
 
             const newProject = await response.json();
         } catch (error) {
-            console.error('Error creating project:', error);
         }
-        //setTotalProjects([...totalProjects, newProjectData]);
         closeModal();
     };
 

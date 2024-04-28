@@ -68,21 +68,17 @@ const InfoTask = ({ closeModal, id, priority, change, setChange, name, state, de
         loadQuillEditor();
     }, []);
 
-    // Obtener la fecha y hora actual
     const fechaActual = new Date();
-
-    // Configurar la zona horaria para Lima, Perú (UTC-5)
     const opciones = { timeZone: 'America/Lima' };
-
-    // Obtener la fecha y hora en Lima, Perú
     const fechaHoraLima = fechaActual.toLocaleString('es-PE', opciones);
 
     const sendData = async () => {
-
-        if (content != '') {
+        if (content !== '') {
             const taskUpdate = [
-                ...projects[idProject].tasks.slice(0, id), { ...projects[idProject].tasks[id], comments: [...comments, { comment: content, date: fechaHoraLima }] }, ...projects[idProject].tasks.slice(id + 1, projects[idProject].tasks.length)
-            ]
+                ...projects[idProject].tasks.slice(0, id),
+                { ...projects[idProject].tasks[id], comments: [...comments, { comment: content, date: fechaHoraLima }] },
+                ...projects[idProject].tasks.slice(id + 1, projects[idProject].tasks.length)
+            ];
             try {
                 const response = await fetch(`http://localhost:5000/api/projects/${projects[idProject]._id}`, {
                     method: 'PUT',
@@ -95,26 +91,33 @@ const InfoTask = ({ closeModal, id, priority, change, setChange, name, state, de
                 if (!response.ok) {
                     throw new Error('Failed to update task');
                 }
-                console.log('Task updated successfully');
-            } catch (error) {
-                console.error('Error updating task:', error);
-            }
 
-            setChange(!change);
-            setContent('');
-            /* setProjects((prevProjects: any) => [
-                ...prevProjects.slice(0, idProject),//Separo el primer proyecto
-                {//desestructuro el proyecto, pero entro a las tasks
-                    ...prevProjects[idProject], tasks: [
-                        ...prevProjects[idProject].tasks.slice(0, id), { ...prevProjects[idProject].tasks[id], comments: [...comments, { comment: content, date: fechaHoraLima }] }, ...prevProjects[idProject].tasks.slice(id + 1, prevProjects[idProject].tasks.length)
-                    ]
-                },
-                ...prevProjects.slice(idProject + 1)//Separo el ultimo proyecto
-            ]); */
+                // Después de enviar la solicitud PUT, vuelve a cargar los proyectos
+                const fetchTasks = async () => {
+                    try {
+                        const response = await fetch('http://localhost:5000/api/projects');
+                        if (!response.ok) {
+                            throw new Error('Failed to fetch projects');
+                        }
+                        const projects = await response.json();
+                        return projects; // Retornamos los proyectos para usarlos en el efecto posterior
+                    } catch (error) {
+                        return null; // En caso de error, retornamos null
+                    }
+                };
+                fetchTasks().then((data) => {
+                    setProjects(data)
+                    setChange(!change);
+                    setContent('');
+                });
+
+            } catch (error) {
+            }
         } else {
             openModalAlert();
         }
-    }
+    };
+
 
     const exitInfo = () => {
         closeModal();
@@ -173,12 +176,13 @@ const InfoTask = ({ closeModal, id, priority, change, setChange, name, state, de
                                     <div key={id} className='mt-3'>
                                         <p className='font-poppins text-xs ml-2'>Date: {comment.date}</p>
                                         <div className='flex gap-2 mx-2 bg-stone-200 rounded border-2 border-gray-500'>
-                                            <div className='text-black font-poppins text-left' dangerouslySetInnerHTML={{
-                                                __html: comment.comment,
-                                            }} />
+                                            <div className='text-black font-poppins text-left' style={{ maxWidth: '100%', overflowY: 'auto', wordWrap: 'break-word' }}>
+                                                <p dangerouslySetInnerHTML={{ __html: comment.comment }} />
+                                            </div>
                                         </div>
                                     </div>
                                 ))}
+
                             </div>
                         </div>
                     </div>

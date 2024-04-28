@@ -26,9 +26,7 @@ const CardToDoList = ({ id, idProject, projects, setProjects, task, totalTasks, 
             if (!response.ok) {
                 throw new Error('Failed to update task');
             }
-            console.log('Task updated successfully');
         } catch (error) {
-            console.error('Error updating task:', error);
         }
 
         setChange(!change);
@@ -50,9 +48,7 @@ const CardToDoList = ({ id, idProject, projects, setProjects, task, totalTasks, 
             if (!response.ok) {
                 throw new Error('Failed to update task');
             }
-            console.log('Task updated successfully');
         } catch (error) {
-            console.error('Error updating task:', error);
         }
 
         setChange(!change);

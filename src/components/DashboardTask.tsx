@@ -68,19 +68,12 @@ const DashboardTask = () => {
                     throw new Error('Failed to fetch projects');
                 }
                 const projects = await response.json();
-                return projects; // Retornamos los proyectos para usarlos en el efecto posterior
+                setProjects(projects); // Retornamos los proyectos para usarlos en el efecto posterior
             } catch (error) {
-                console.error('Error fetching tasks:', error);
                 return null; // En caso de error, retornamos null
             }
         };
-
-        fetchTasks().then(projects => {
-            if (projects && projects.length > 0) {
-                setProjects(projects);
-            }
-        });
-
+        fetchTasks();
     }, [change]);
 
     // Este efecto se ejecutará cada vez que 'projects' cambie
@@ -115,7 +108,7 @@ const DashboardTask = () => {
             setTaskDone(filteredDataDone);
             setIdsDone(filteredIndicesDone);
         }
-    }, [change, projects, idView]);
+    }, [projects, idView]);
 
 
 
