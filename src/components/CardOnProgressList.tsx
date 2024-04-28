@@ -90,13 +90,6 @@ const CardOnProgressList = ({ id, idProject, projects, setProjects, task, totalT
         setIsOpenModal(false);
     };
 
-    const [comments, setComments] = useState<CommentsType[]>([]);
-
-    useEffect(() => {
-        setComments(projects[idProject].tasks[id]?.comments)
-    }, [change, idProject])
-
-
     const modalRef = useRef<HTMLDivElement>(null);
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -123,7 +116,7 @@ const CardOnProgressList = ({ id, idProject, projects, setProjects, task, totalT
                     <span className='text-xs font-normal font-poppins text-[#787486] truncate w-36'>{task.description}</span>
                     <div className='flex items-center gap-2 w-36'>
                         <Comments />
-                        <small className='text-[#787486] font-medium font-poppins text-xs'>{comments.length} comments</small>
+                        <small className='text-[#787486] font-medium font-poppins text-xs'>{projects[idProject].tasks[id]?.comments.length} comments</small>
                     </div>
                 </div>
                 <div className='mr-5'>
@@ -142,7 +135,7 @@ const CardOnProgressList = ({ id, idProject, projects, setProjects, task, totalT
                     </div>
                 </div>
             </div>
-            {isOpenModal && <InfoTask closeModal={closeModal} change={change} setChange={setChange} id={id} idProject={idProject} state={task.state} priority={task.priority} name={task.title} description={task.description} setProjects={setProjects} setTotalTasks={setTotalTasks} comments={comments} setComments={setComments} />}
+            {isOpenModal && <InfoTask closeModal={closeModal} change={change} setChange={setChange} id={id} idProject={idProject} state={task.state} priority={task.priority} name={task.title} description={task.description} setProjects={setProjects} totalTasks={totalTasks} comments={projects[idProject].tasks[id]?.comments} projects={projects} />}
         </>
     )
 }

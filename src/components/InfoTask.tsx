@@ -3,7 +3,7 @@ import 'react-quill/dist/quill.snow.css';
 import ModalAlert from './ModalAlert';
 
 
-const InfoTask = ({ closeModal, id, priority, change, setChange, name, state, description, idProject, setProjects, totalTasks, comments, projects }: any) => {
+const InfoTask = ({ closeModal, id, priority, change, setChange, name, state, description, idProject, setProjects, comments, projects }: any) => {
 
     const modalRef = useRef<HTMLDivElement>(null);
 
