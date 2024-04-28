@@ -25,10 +25,25 @@ const CardOnProgressList = ({ id, idProject, projects, setProjects, task, totalT
             if (!response.ok) {
                 throw new Error('Failed to update task');
             }
+            const fetchTasks = async () => {
+                try {
+                    const response = await fetch('http://localhost:5000/api/projects');
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch projects');
+                    }
+                    const projects = await response.json();
+                    return projects; // Retornamos los proyectos para usarlos en el efecto posterior
+                } catch (error) {
+                    return null; // En caso de error, retornamos null
+                }
+            };
+            fetchTasks().then((data) => {
+                setProjects(data)
+                setChange(!change);
+            });
         } catch (error) {
         }
 
-        setChange(!change);
     }
 
     const handleChangeDone = async () => {
@@ -45,9 +60,24 @@ const CardOnProgressList = ({ id, idProject, projects, setProjects, task, totalT
             if (!response.ok) {
                 throw new Error('Failed to update task');
             }
+            const fetchTasks = async () => {
+                try {
+                    const response = await fetch('http://localhost:5000/api/projects');
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch projects');
+                    }
+                    const projects = await response.json();
+                    return projects; // Retornamos los proyectos para usarlos en el efecto posterior
+                } catch (error) {
+                    return null; // En caso de error, retornamos null
+                }
+            };
+            fetchTasks().then((data) => {
+                setProjects(data)
+                setChange(!change);
+            });
         } catch (error) {
         }
-        setChange(!change);
     }
 
     const [isOpenModal, setIsOpenModal] = useState(false);
