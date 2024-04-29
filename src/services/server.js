@@ -2,12 +2,14 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { MongoClient, ObjectId, ServerApiVersion } from "mongodb";
+import { createServer } from "http"; // Importa createServer desde http
+import { Server } from "socket.io"; // Importa Server desde socket.io
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(cors());
-
 const urlMongo = process.env.MONGO_ACCESS;
 
 const uri = urlMongo;
@@ -35,6 +37,8 @@ async function connect() {
     app.post("/api/projects", async (req, res) => {
       const newProjects = req.body;
       const result = await projectsCollection.insertOne(newProjects);
+      console.log(result);
+      io.emit("projectUpdated", result); // Emitir evento de proyecto agregado
       res.json(result);
     });
 
@@ -48,6 +52,9 @@ async function connect() {
           { $set: updatedProjectData }
         );
         res.json({ message: "Project updated successfully" });
+
+        // Emitir evento de actualización a través de Socket.IO
+        io.emit("projectUpdated", projectId);
       } catch (error) {
         console.error("Error updating project:", error);
         res.status(500).json({ error: "Failed to update project" });
@@ -60,6 +67,8 @@ async function connect() {
       try {
         const result = await projectsCollection.deleteOne({ _id: projectId });
         res.json({ message: "Project deleted successfully" });
+
+        io.emit("projectUpdated", projectId);
       } catch (error) {
         console.error("Error deleting project:", error);
         res.status(500).json({ error: "Failed to delete project" });
@@ -72,6 +81,22 @@ async function connect() {
 
 connect();
 
-app.listen(PORT, () => {
+const server = createServer(app); // Crea un servidor HTTP con express
+const io = new Server(server, {
+  cors: {
+    origin: "*", //http://localhost:8000
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  },
+}); // Crea una instancia de Socket.IO y pasa el servidor HTTP
+
+io.on("connection", (socket) => {
+  console.log("A client connected");
+
+  socket.on("disconnect", () => {
+    console.log("Client disconnected");
+  });
+});
+
+server.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });

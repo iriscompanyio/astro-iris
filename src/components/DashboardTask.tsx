@@ -8,6 +8,9 @@ import ToDoList from './ToDoList'
 import OnProgressList from './OnProgressList'
 import DoneLisT from './DoneLisT'
 import AddProject from './AddProject'
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:5000'); // Establece la conexión con el servidor Socket.IO
 
 interface Comments {
     comment: string,
@@ -61,19 +64,31 @@ const DashboardTask = () => {
     const [valueTasks, setValuesTasks] = useState<Task[]>([]);
 
     useEffect(() => {
-        const fetchTasks = async () => {
+        const fetchProjects = async () => {
             try {
                 const response = await fetch('http://localhost:5000/api/projects');
                 if (!response.ok) {
                     throw new Error('Failed to fetch projects');
                 }
                 const projects = await response.json();
-                setProjects(projects); // Retornamos los proyectos para usarlos en el efecto posterior
+                setProjects(projects);
             } catch (error) {
-                return null; // En caso de error, retornamos null
+                console.error('Error fetching projects:', error);
             }
         };
-        fetchTasks();
+
+        const socket = io('http://localhost:5000'); // Conecta con el servidor de Socket.IO
+
+        socket.on('projectUpdated', () => {
+            // Procesar el evento de proyecto agregado
+            fetchProjects();
+        });
+
+        fetchProjects(); // Cargar proyectos al montar el componente
+
+        return () => {
+            socket.disconnect(); // Desconectar el socket cuando el componente se desmonte
+        };
     }, [change]);
 
     // Este efecto se ejecutará cada vez que 'projects' cambie
