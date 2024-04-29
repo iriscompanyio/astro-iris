@@ -8,6 +8,9 @@ import Layout from "@layouts/Layout.astro";
 import Brand from "@components/Brand.astro";
 import Brain from "@components/Brain.astro";
 import Chat from "@components/Chatbot.astro";
+import AboutUs from "@components/AboutUs.astro";
+import Stack from "@components/Stack.tsx";
+import Socials from "@components/Socials.tsx";
 ---
 
 <Layout>
@@ -31,6 +34,9 @@ import Chat from "@components/Chatbot.astro";
       description="& servicios digitales"
       body="Desarrollamos soluciones digitales para la industria, las empresas emergentes y las organizaciones sin fines de lucro con una red seleccionada de socios para garantizar la máxima funcionalidad e interoperabilidad entre el Internet de las cosas, el desarrollo de software y la inteligencia artificial."
     />
+    <AboutUs />
+    <Stack client:load />
+    <Socials client:load />
     <Brand />
     <Web
       title="Desarrollo, Integración y"
@@ -42,9 +48,7 @@ import Chat from "@components/Chatbot.astro";
       description="de I.A. personalizadas"
       body="Comience con una experiencia completamente administrada por usted con nosotros. Lo ayudamos a lo largo de todo el proceso de IA, para que pueda crear, entrenar e implementar modelos de aprendizaje automático o profundo fácilmente para su propio caso de negocio."
     />
-    <Project
-      title_project="Proyectos Entregados"
-    />
+    <Project title_project="Proyectos Entregados" />
     <Question
       title="Preguntas frecuentes"
       items={[
